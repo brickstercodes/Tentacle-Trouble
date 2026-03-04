@@ -1,0 +1,8 @@
+﻿<Solution>
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="CodeMonkeyFree.csproj" />
+  <Project Path="com.airconsole.webview.runtime.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="CodeMonkeyFreeEditor.csproj" />
+  <Project Path="com.airconsole.webview.editor.csproj" />
+</Solution>

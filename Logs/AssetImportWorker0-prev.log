@@ -1,0 +1,697 @@
+Unity Editor version:    6000.3.3f1 (ef04196de0d6)
+Branch:                  6000.3/staging
+Build type:              Release
+Batch mode:              YES
+macOS version:           Version 26.3 (Build 25D125)
+Darwin version:          25.3.0
+Architecture:            arm64
+Running under Rosetta:   NO
+Available memory:        8192 MB
+Date:                    2026-03-03T15:13:10Z
+[Licensing::Module] Trying to connect to existing licensing client channel...
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-anugrahshetty" at "2026-03-03T15:13:10.322742Z"
+
+COMMAND LINE ARGUMENTS:
+/Volumes/NVME/Unity/6000.3.3f1/Unity.app/Contents/MacOS/Unity
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+/Volumes/NVME/Unity Projects/Octo
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+49471
+-licensingIpc
+LicenseClient-anugrahshetty
+-job-worker-count
+3
+-background-job-worker-count
+8
+-gc-helper-count
+1
+-name AssetImport
+Successfully changed project path to: /Volumes/NVME/Unity Projects/Octo
+/Volumes/NVME/Unity Projects/Octo
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [8675537024]  Target information:
+
+Player connection [8675537024]  * "[IP] 192.168.0.108 [Port] 0 [Flags] 2 [Guid] 1832407265 [EditorId] 1832407265 [Version] 1048832 [Id] OSXEditor(0,Anugrahs-MacBook-Air.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" 
+
+Player connection [8675537024] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [8675537024] Host joined alternative multi-casting on [225.0.0.222:34997]...
+JobSystem: Creating JobQueue using job-worker-count value 3
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Library Redirect Path: Library/
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Refreshing native plugins compatible for Editor in 10.88 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 6000.3.3f1 (ef04196de0d6)
+[Subsystems] Discovering subsystems at path /Volumes/NVME/Unity/6000.3.3f1/Unity.app/Contents/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path /Volumes/NVME/Unity Projects/Octo/Assets
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+ preferred device: Apple M2 (high power)
+Metal devices available: 1
+0: Apple M2 (high power)
+Using device Apple M2 (high power)
+Initializing Metal device caps: Apple M2
+Mac GPU Family: 2
+Apple GPU Family: 8
+MSL Version: 3.0
+Has Float MSAA: 1
+Has Float Filtering: 1
+ReadWrite Texture Tier: 2
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.17.4+4293ba1
+  Session Id:              dc084459446b4ea2aeaa8acfd964f472
+  Correlation Id:          e61e4076919f7e6f4f1573171adf8314
+  External correlation Id: 6163688459846952861
+  Machine Id:              2ZISDWbxTogEAx/P3haFV9/QxY0=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-anugrahshetty" (connect: 0.00s, validation: 0.01s, handshake: 0.99s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-anugrahshetty-notifications" at "2026-03-03T15:13:11.315805Z"
+[Licensing::Module] Licensing Background thread has ended after 0.99s
+Initialize mono
+Mono path[0] = '/Volumes/NVME/Unity/6000.3.3f1/Unity.app/Contents/Resources/Scripting/Managed'
+Mono path[1] = '/Volumes/NVME/Unity/6000.3.3f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/lib/mono/unityjit-macos'
+Mono config path = '/Volumes/NVME/Unity/6000.3.3f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56381
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: /Volumes/NVME/Unity/6000.3.3f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
+Registered in 0.001196 seconds.
+- Loaded All Assemblies, in  0.436 seconds
+Native extension for OSXStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.380 seconds
+Domain Reload Profiling: 816ms
+	BeginReloadAssembly (187ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (37ms)
+	RebuildNativeTypeToScriptingClass (11ms)
+	initialDomainReloadingComplete (46ms)
+	LoadAllAssembliesAndSetupDomain (154ms)
+		LoadAssemblies (186ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (149ms)
+			TypeCache.Refresh (148ms)
+				TypeCache.ScanAssembly (130ms)
+			BuildScriptInfoCaches (0ms)
+			ResolveRequiredComponents (0ms)
+	FinalizeReload (381ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (321ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (37ms)
+			SetLoadedEditorAssemblies (5ms)
+			BeforeProcessingInitializeOnLoad (81ms)
+			ProcessInitializeOnLoadAttributes (113ms)
+			ProcessInitializeOnLoadMethodAttributes (84ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+[CoreBusinessMetrics] Unexpected thread when updating session info.
+========================================================================
+Worker process is ready to serve import requests
+Import Worker Mode flag is 0x00
+Begin MonoManager ReloadAssembly
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 13469192992208-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+- Loaded All Assemblies, in  0.927 seconds
+Refreshing native plugins compatible for Editor in 2.93 ms, found 3 plugins.
+Native extension for OSXStandalone target not found
+System.Net.Sockets.SocketException (0x80004005): Address already in use
+  at System.Net.Sockets.Socket.Bind (System.Net.EndPoint localEP) [0x00043] in <6c5ac471d4e94f0fb88aec041d27c600>:0 
+  at System.Net.EndPointListener..ctor (System.Net.HttpListener listener, System.Net.IPAddress addr, System.Int32 port, System.Boolean secure) [0x00047] in <6c5ac471d4e94f0fb88aec041d27c600>:0 
+  at System.Net.EndPointManager.GetEPListener (System.String host, System.Int32 port, System.Net.HttpListener listener, System.Boolean secure) [0x0009d] in <6c5ac471d4e94f0fb88aec041d27c600>:0 
+  at System.Net.EndPointManager.AddPrefixInternal (System.String p, System.Net.HttpListener listener) [0x0005e] in <6c5ac471d4e94f0fb88aec041d27c600>:0 
+  at System.Net.EndPointManager.AddPrefix (System.String prefix, System.Net.HttpListener listener) [0x00010] in <6c5ac471d4e94f0fb88aec041d27c600>:0 
+  at System.Net.HttpListenerPrefixCollection.Add (System.String uriPrefix) [0x00039] in <6c5ac471d4e94f0fb88aec041d27c600>:0 
+  at NDream.AirConsole.Editor.WebListener.Start () [0x0005d] in /Volumes/NVME/Unity Projects/Octo/Assets/AirConsole/scripts/editor/WebListener.cs:35 
+  at NDream.AirConsole.Editor.Extentions..cctor () [0x00016] in /Volumes/NVME/Unity Projects/Octo/Assets/AirConsole/scripts/editor/Extentions.cs:24 
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace () (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[]) (at /Users/bokken/build/output/unity/unity/Editor/Mono/EditorAssemblies.cs:132)
+
+(Filename: /Users/bokken/build/output/unity/unity/Editor/Mono/EditorAssemblies.cs Line: 132)
+
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-Octo
+Package Manager log level set to [2]
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.004 seconds
+Domain Reload Profiling: 1932ms
+	BeginReloadAssembly (154ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (4ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (55ms)
+	RebuildCommonClasses (27ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (21ms)
+	LoadAllAssembliesAndSetupDomain (716ms)
+		LoadAssemblies (458ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (310ms)
+			TypeCache.Refresh (245ms)
+				TypeCache.ScanAssembly (206ms)
+			BuildScriptInfoCaches (51ms)
+			ResolveRequiredComponents (10ms)
+	FinalizeReload (1005ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (770ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (1ms)
+			SetLoadedEditorAssemblies (4ms)
+			BeforeProcessingInitializeOnLoad (117ms)
+			ProcessInitializeOnLoadAttributes (586ms)
+			ProcessInitializeOnLoadMethodAttributes (61ms)
+			AfterProcessingInitializeOnLoad (1ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (2ms)
+WARNING: Shader Unsupported: 'Universal Render Pipeline/VR/SpatialMapping/Wireframe' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'Universal Render Pipeline/VR/SpatialMapping/Wireframe' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+Launching external process: /Volumes/NVME/Unity/6000.3.3f1/Unity.app/Contents/Helpers/UnityShaderCompiler
+Launched and connected shader compiler UnityShaderCompiler after 0.17 seconds
+Refreshing native plugins compatible for Editor in 0.97 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 17 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 6343 unused Assets / (2.0 MB). Loaded Objects now: 7137.
+Memory consumption went from 139.0 MB to 137.0 MB.
+Total: 64.356875 ms (FindLiveObjects: 10.579625 ms CreateObjectMapping: 0.888584 ms MarkObjects: 45.606250 ms  DeleteObjects: 7.281500 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 9719.000475 seconds.
+  path: Packages/com.unity.multiplayer.center/Editor/MultiplayerCenterWindow/UI/MultiplayerCenterWindow.uss
+  artifactKey: Guid(bac00d6e07f0b4305bb395363c89d92b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Packages/com.unity.multiplayer.center/Editor/MultiplayerCenterWindow/UI/MultiplayerCenterWindow.uss using Guid(bac00d6e07f0b4305bb395363c89d92b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '6ce91b3f8538ab3d75ee54e035451471') in 0.0716275 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 19
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.274530 seconds.
+  path: Assets/Scripts/Input/AirConsoleInputHandler.cs
+  artifactKey: Guid(d6003f91915704759bee536c813b7506) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Scripts/Input/AirConsoleInputHandler.cs using Guid(d6003f91915704759bee536c813b7506) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'b492b20dc827df0e1b18f047dfc9fe81') in 0.188104416 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000147 seconds.
+  path: Assets/Scenes/SampleScene.unity
+  artifactKey: Guid(99c9720ab356a0642a771bea13969a05) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Scenes/SampleScene.unity using Guid(99c9720ab356a0642a771bea13969a05) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '41b5dc1d6f49e72dd180fed5cb4259a4') in 0.010968458 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Prepare
+WARNING: Shader Unsupported: 'Universal Render Pipeline/VR/SpatialMapping/Wireframe' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'Universal Render Pipeline/VR/SpatialMapping/Wireframe' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+Refreshing native plugins compatible for Editor in 0.51 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 53 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 6772 unused Assets / (8.6 MB). Loaded Objects now: 7546.
+Memory consumption went from 149.8 MB to 141.2 MB.
+Total: 191.700875 ms (FindLiveObjects: 1.449708 ms CreateObjectMapping: 0.766625 ms MarkObjects: 184.854500 ms  DeleteObjects: 4.629833 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Prepare
+WARNING: Shader Unsupported: 'Universal Render Pipeline/VR/SpatialMapping/Wireframe' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'Universal Render Pipeline/VR/SpatialMapping/Wireframe' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+Refreshing native plugins compatible for Editor in 0.46 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 53 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 6772 unused Assets / (6.6 MB). Loaded Objects now: 7546.
+Memory consumption went from 149.8 MB to 143.2 MB.
+Total: 57.578625 ms (FindLiveObjects: 0.754208 ms CreateObjectMapping: 0.361958 ms MarkObjects: 49.226500 ms  DeleteObjects: 7.235375 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Prepare
+WARNING: Shader Unsupported: 'Universal Render Pipeline/VR/SpatialMapping/Wireframe' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'Universal Render Pipeline/VR/SpatialMapping/Wireframe' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+Refreshing native plugins compatible for Editor in 0.45 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 53 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 6772 unused Assets / (6.7 MB). Loaded Objects now: 7546.
+Memory consumption went from 149.8 MB to 143.1 MB.
+Total: 12.003167 ms (FindLiveObjects: 0.374875 ms CreateObjectMapping: 0.291292 ms MarkObjects: 6.660708 ms  DeleteObjects: 4.676167 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Import Request.
+  Time since last request: 3086.607706 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/dSwordShield_AttackQuickSlashRight.bytes
+  artifactKey: Guid(a12e5388f1ebf374ba43e6be6113b026) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/dSwordShield_AttackQuickSlashRight.bytes using Guid(a12e5388f1ebf374ba43e6be6113b026) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '82b6b9dc7ed89494424b24fac180a124') in 0.03972775 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000108 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/SkillTree/Prefabs/pfEarthshatterEffect.prefab
+  artifactKey: Guid(df4d7c3ba68af3b41b2a3bf9f14bb9ca) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/SkillTree/Prefabs/pfEarthshatterEffect.prefab using Guid(df4d7c3ba68af3b41b2a3bf9f14bb9ca) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'baea7e96d10909d569c70e0f63db287c') in 0.231807 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 6
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_
+  artifactKey: Guid(4ad70f11d566df74ea78e615ab4e6803) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_ using Guid(4ad70f11d566df74ea78e615ab4e6803) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '682d1a44342824d4ed88fda36a88af9f') in 0.001927958 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dSpaceNinja/dSpaceNinja_IdleUp.bytes
+  artifactKey: Guid(2afafb4e0d534c7469a9c94cd4416623) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dSpaceNinja/dSpaceNinja_IdleUp.bytes using Guid(2afafb4e0d534c7469a9c94cd4416623) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '251d36ac4bdaadac4159386920630b27') in 0.001897791 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000054 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/InventoryTetris/Items/ShotgunVisual.prefab
+  artifactKey: Guid(25c2a01074650284eb6a65ac7ef7737f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/InventoryTetris/Items/ShotgunVisual.prefab using Guid(25c2a01074650284eb6a65ac7ef7737f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '660dde7ee8db1799918a8989fedc7d74') in 0.026679833 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 8
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000072 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/KeyDoor/Materials/DoorGreen.mat
+  artifactKey: Guid(3c91866e0db276c41991cb8b03da8685) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/KeyDoor/Materials/DoorGreen.mat using Guid(3c91866e0db276c41991cb8b03da8685) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '56a68fb57f3e489259026ef01afa0106') in 0.051007833 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000049 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/FirstPersonController/Scripts/FirstPersonController.cs
+  artifactKey: Guid(8e6d6d1e9d65649429c5a82e6282f61c) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/FirstPersonController/Scripts/FirstPersonController.cs using Guid(8e6d6d1e9d65649429c5a82e6282f61c) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'a6e51630700ef843fb54345099391bcc') in 0.002024417 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dArrow/dArrow_WalkDown.bytes
+  artifactKey: Guid(830bcaeb2efef7844871b21fa444e027) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dArrow/dArrow_WalkDown.bytes using Guid(830bcaeb2efef7844871b21fa444e027) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '30f80626251b349f26e811ae5180d93f') in 0.002614166 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000038 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dSpartan/dSpartan_Down.bytes
+  artifactKey: Guid(39eff24a41edab74f9dbeb4cd256a0ac) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dSpartan/dSpartan_Down.bytes using Guid(39eff24a41edab74f9dbeb4cd256a0ac) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '0e46d4faccffe06211327269e464e8d8') in 0.002273125 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000084 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dZombie/dZombie_WalkDownRight.bytes
+  artifactKey: Guid(9ce143bc3e7597c4f833e900f9757fa7) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dZombie/dZombie_WalkDownRight.bytes using Guid(9ce143bc3e7597c4f833e900f9757fa7) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'd0aa8844ce0b4546b5380c9cbaeeecb9') in 0.0030145 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000047 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/CursorIcons/Scripts/UnitRTS.cs
+  artifactKey: Guid(1b12a6aa6fe40f14c937f71c16bba29c) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/CursorIcons/Scripts/UnitRTS.cs using Guid(1b12a6aa6fe40f14c937f71c16bba29c) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '42c04179b707d1bd9643b0118cbbc188') in 0.003822666 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000043 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/QuestPointer/Scripts/Window_QuestPointer.cs
+  artifactKey: Guid(8a0ddc8abf17a234a9e3bcda43ec3807) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/QuestPointer/Scripts/Window_QuestPointer.cs using Guid(8a0ddc8abf17a234a9e3bcda43ec3807) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '3cdcb2a4c276f5707869f39b21e86071') in 0.001819042 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dChicken/dChicken_AttackUpRight.bytes
+  artifactKey: Guid(112d9b2f1264c1940bb5424f4bc59256) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dChicken/dChicken_AttackUpRight.bytes using Guid(112d9b2f1264c1940bb5424f4bc59256) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '69d7ea45387fb471923f2230fc51a4d5') in 0.004895292 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000056 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/GridPathfinding/PathNode.cs
+  artifactKey: Guid(a4734582c1b75204b8e0d988a68c69fa) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/GridPathfinding/PathNode.cs using Guid(a4734582c1b75204b8e0d988a68c69fa) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'f244681acdbbf8640da1b15dfb78a4a2') in 0.003787167 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000061 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dOgre/dOgre_IdleDown.bytes
+  artifactKey: Guid(f25bdeecef9614c4fbd46aff5b773725) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dOgre/dOgre_IdleDown.bytes using Guid(f25bdeecef9614c4fbd46aff5b773725) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '85131c6dc2d33a9d1e6d4a6bd83cf368') in 0.005977125 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000070 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Shaders/ShaderGraph/Scripts
+  artifactKey: Guid(682ffcfff225e6044bd0e32ea471fb7d) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Shaders/ShaderGraph/Scripts using Guid(682ffcfff225e6044bd0e32ea471fb7d) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '3ab43b8cda637e50c2ca8e15dfa83262') in 0.002362167 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000050 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/ThirdPersonController_Standalone/ThirdPersonControllerInputAsset.cs
+  artifactKey: Guid(f409209c2dee78445b516da874f4ed62) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/ThirdPersonController_Standalone/ThirdPersonControllerInputAsset.cs using Guid(f409209c2dee78445b516da874f4ed62) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '3769a50eab1d454a6d238119877bc82a') in 0.005113167 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dChicken/dChicken_AttackUpLeft.bytes
+  artifactKey: Guid(e79575d2b4f8eaa47904055be0f2daf5) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dChicken/dChicken_AttackUpLeft.bytes using Guid(e79575d2b4f8eaa47904055be0f2daf5) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '95ac97f3d0bcad5111e502b246f77dda') in 0.002878875 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000075 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/TextWriter/Scripts/UI_Assistant.cs
+  artifactKey: Guid(d87af188834eeb64ab0b64fa5d9b4e50) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/TextWriter/Scripts/UI_Assistant.cs using Guid(d87af188834eeb64ab0b64fa5d9b4e50) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'c9cc01aca51dba7903e2ceded520f385') in 0.002994667 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000040 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/dSwordShield_SpartanKickDown.bytes
+  artifactKey: Guid(effaf54e589f89b46858dde54cd6e5fd) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/dSwordShield_SpartanKickDown.bytes using Guid(effaf54e589f89b46858dde54cd6e5fd) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'f9cb400543fc77bd4c42564041cf072b') in 0.002206375 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/dBareHands_KickUpLeft.bytes
+  artifactKey: Guid(f279dd29e01e38e4f8e4e787154bf777) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/dBareHands_KickUpLeft.bytes using Guid(f279dd29e01e38e4f8e4e787154bf777) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'e48a9d45852f3c42146bd26c0e08f401') in 0.003749084 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000038 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/CodeMonkeyFree/Textures/freeCourses_KitchenChaos.png
+  artifactKey: Guid(123185b2c0ce05949bdeaf4e652c52c1) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/CodeMonkeyFree/Textures/freeCourses_KitchenChaos.png using Guid(123185b2c0ce05949bdeaf4e652c52c1) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '140a8c5691bb6a218f3e2af1b0c6cbcf') in 0.0603885 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000077 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_ObjectSystem/V_IObjectTransform.cs
+  artifactKey: Guid(7f4dafe6a9263d140947016b054651fb) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_ObjectSystem/V_IObjectTransform.cs using Guid(7f4dafe6a9263d140947016b054651fb) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '6c417e976ad145745c3ade207331d2a0') in 0.004761584 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/ChatBubble/ChatBubbleSpawn.anim
+  artifactKey: Guid(4e607758ac035ec419c350bf60e9dba0) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/ChatBubble/ChatBubbleSpawn.anim using Guid(4e607758ac035ec419c350bf60e9dba0) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '467e5186ea9d3c3961fa0ab43837fc6e') in 0.032964833 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000064 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/BodyPart.cs
+  artifactKey: Guid(a13ee8682694560428f9f508164b9501) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/BodyPart.cs using Guid(a13ee8682694560428f9f508164b9501) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '5703292fb7c5e17067e842c56a950f03') in 0.003139833 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Shaders/GrayscaleToAlpha.shader
+  artifactKey: Guid(6fc3b2f27e340824681b8cc524652f54) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Shaders/GrayscaleToAlpha.shader using Guid(6fc3b2f27e340824681b8cc524652f54) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '11733a03d31fe52e84413807cb8db3d6') in 0.015080125 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000162 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/ModularCharacter/Scripts/Done/ProjectileAttack.cs
+  artifactKey: Guid(ca2c9b6f5278e8a459965f92b78edb27) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/ModularCharacter/Scripts/Done/ProjectileAttack.cs using Guid(ca2c9b6f5278e8a459965f92b78edb27) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '1a78df5bb7a5737e3875c03d1fe02266') in 0.003434209 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000038 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dSwordTwoHandedBack/dSwordTwoHandedBack_SwordUpRight2.bytes
+  artifactKey: Guid(7c90e3de5fa2a264c99cb4ce8a9c335a) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dSwordTwoHandedBack/dSwordTwoHandedBack_SwordUpRight2.bytes using Guid(7c90e3de5fa2a264c99cb4ce8a9c335a) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '1906a498463a5e0ea6c7983eb18df166') in 0.002312958 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000092 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/CheckpointSystem/Scripts/TrackCheckpointsUI.cs
+  artifactKey: Guid(927b023ef3ffe54469558264b4942576) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/CheckpointSystem/Scripts/TrackCheckpointsUI.cs using Guid(927b023ef3ffe54469558264b4942576) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '48bd916bdcd1d95fc2552e8bdc12e29d') in 0.006534792 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000055 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/FieldOfView/Rendering/LightweightRenderPipelineAsset.asset
+  artifactKey: Guid(af29ac9c4200f2f4a96f088e33acca52) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/FieldOfView/Rendering/LightweightRenderPipelineAsset.asset using Guid(af29ac9c4200f2f4a96f088e33acca52) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '2a36111ab289b623be587d054e732fc7') in 0.107867125 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 5
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000134 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/DemomanEyelander_WalkDownRight.bytes
+  artifactKey: Guid(c44cbf3fe5de3ed4d8aee0e675675b3e) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/DemomanEyelander_WalkDownRight.bytes using Guid(c44cbf3fe5de3ed4d8aee0e675675b3e) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '5b90cae5c426c23b2d8e56bc5afee984') in 0.005498 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000052 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Base/BaseScripts/FlyingBody.cs
+  artifactKey: Guid(7b973c9d3b04a8441b17e42d4e35c833) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Base/BaseScripts/FlyingBody.cs using Guid(7b973c9d3b04a8441b17e42d4e35c833) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'fc6db4184faf6705546ce8fbb90700be') in 0.003304542 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000097 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/MeshParticleSystem/Textures/DirtMaterial.mat
+  artifactKey: Guid(a336406b02afa4d4daad7a551087121c) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/MeshParticleSystem/Textures/DirtMaterial.mat using Guid(a336406b02afa4d4daad7a551087121c) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '90c005a9bb6b7c1b588d2b099e364b04') in 0.016180333 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000050 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/DrawPixels
+  artifactKey: Guid(5ad2fddf51b6dba4681b4477023e36fb) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/DrawPixels using Guid(5ad2fddf51b6dba4681b4477023e36fb) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '38a1ec17cdef5c67d154b3052efb6492') in 0.001782625 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dPersian/dPersian_WalkUp.bytes
+  artifactKey: Guid(7689ca1f43655734ba2b920e44aa4c3f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dPersian/dPersian_WalkUp.bytes using Guid(7689ca1f43655734ba2b920e44aa4c3f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '67a48b0bc3c230d1044338b0f27f2d5a') in 0.002116667 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000104 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/GridBuildingSystem/Prefabs/_/2D/pfBuilding.prefab
+  artifactKey: Guid(091bd0f9854ba8e4bbddceb3888b3281) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/GridBuildingSystem/Prefabs/_/2D/pfBuilding.prefab using Guid(091bd0f9854ba8e4bbddceb3888b3281) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '6cddd1d7afce451945c5734fe0e45211') in 0.014191291 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 19
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000051 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/TopDownShooter/Scripts/EnableLights.cs
+  artifactKey: Guid(1482ed59687a233429ed261d29da9a39) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Videos/TopDownShooter/Scripts/EnableLights.cs using Guid(1482ed59687a233429ed261d29da9a39) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '7a75b79055f9c4365720e88d5fabc16a') in 0.001967625 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000040 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/Spiderman_ShootWebZipUpRight.bytes
+  artifactKey: Guid(867eb15c80dafdf4394196f9b09aed2c) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/Spiderman_ShootWebZipUpRight.bytes using Guid(867eb15c80dafdf4394196f9b09aed2c) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '31cc4edb801bb66b175d255b95226cc5') in 0.003140791 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000076 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/Spiderman_ShootWebDown.bytes
+  artifactKey: Guid(385b39bca79caae40b0b4b63638e9d02) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/Spiderman_ShootWebDown.bytes using Guid(385b39bca79caae40b0b4b63638e9d02) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'da24dda07ebcd32d5aa7296582a5837d') in 0.003109584 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000060 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dSwordTwoHandedBack/dSwordTwoHandedBack_WalkLeft.bytes
+  artifactKey: Guid(c9f622eaf38866e4faeb02260acf98ed) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dSwordTwoHandedBack/dSwordTwoHandedBack_WalkLeft.bytes using Guid(c9f622eaf38866e4faeb02260acf98ed) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '11f26bd7008c9ddf49ae521631696f12') in 0.003639125 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dSpartan/dSpartan_IdleDown.bytes
+  artifactKey: Guid(7943c0a1ce5b4cd43a57494479768f41) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/_Default/Animations/dSpartan/dSpartan_IdleDown.bytes using Guid(7943c0a1ce5b4cd43a57494479768f41) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '901a9429c299f51306a0fae280c7810d') in 0.002095125 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000063 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/dMarine_AimDownRight.bytes
+  artifactKey: Guid(485520d4fd09c784395560f383c8a03f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/dMarine_AimDownRight.bytes using Guid(485520d4fd09c784395560f383c8a03f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '045f092143092aad820fc33578f44bd5') in 0.003220375 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000155 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/CodeMonkeyFreeEditor.csproj
+  artifactKey: Guid(fb3aaac285ba34de6bc4f88c971f68f0) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/CodeMonkeyFreeEditor.csproj using Guid(fb3aaac285ba34de6bc4f88c971f68f0) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'ddd1f5323d584fa3584f99ff94962476') in 0.003906416 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/dBareHands_HitUp.bytes
+  artifactKey: Guid(d7ddb034c59e8f24f86c1d889a3f0f5c) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/V_Animation/Resources/AnimationData/Animations/dBareHands_HitUp.bytes using Guid(d7ddb034c59e8f24f86c1d889a3f0f5c) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '7b9ffde9e7435a2a3b6382c7b92fc92e') in 0.004525667 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000200 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Base/BaseScripts/Characters/PlayerMovementHandler.cs
+  artifactKey: Guid(a1b202741330b484a86aa5850ec8ac7d) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Base/BaseScripts/Characters/PlayerMovementHandler.cs using Guid(a1b202741330b484a86aa5850ec8ac7d) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '91fec4b9ffeac27502398c2153a6fbd0') in 0.003353916 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt
+  artifactKey: Guid(fade42e8bc714b018fac513c043d323b) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt using Guid(fade42e8bc714b018fac513c043d323b) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'ba7a26c10ebfd977dde7b7d3928e5127') in 0.003256541 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000058 seconds.
+  path: Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Shaders/Endless_UI_Greyscale.shader
+  artifactKey: Guid(0d5d6b221df237e4882d3484a71ed70a) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/ProjectFiles_PickUpDropObjects/Assets/_/Stuff/Shaders/Endless_UI_Greyscale.shader using Guid(0d5d6b221df237e4882d3484a71ed70a) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '8c17af00c7a3c82ba948ea47f2820b1c') in 0.005382417 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+

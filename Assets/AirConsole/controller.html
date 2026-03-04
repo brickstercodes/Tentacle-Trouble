@@ -1,0 +1,460 @@
+<!doctype html>
+<html>
+  <head>
+    <meta
+      name="viewport"
+      content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <meta charset="UTF-8" />
+    <title>Octo Controller</title>
+
+    <!-- AirConsole API -->
+    <script
+      type="text/javascript"
+      src="https://www.airconsole.com/api/airconsole-1.9.0.js"
+    ></script>
+
+    <!-- AirConsole Controls (for joysticks) -->
+    <link
+      rel="stylesheet"
+      href="https://www.airconsole.com/controls/airconsole-controls.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://www.airconsole.com/controls/airconsole-controls.js"
+    ></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        touch-action: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: linear-gradient(
+          135deg,
+          #1a1a2e 0%,
+          #16213e 50%,
+          #0f3460 100%
+        );
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      #controller-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .joystick-zone {
+        width: 45%;
+        height: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .joystick-wrapper {
+        width: 150px;
+        height: 150px;
+        position: relative;
+      }
+
+      .limb-label {
+        color: #fff;
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        opacity: 0.8;
+      }
+
+      .joystick-base {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        position: relative;
+      }
+
+      .joystick-stick {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #e94560, #c73659);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+        transition: box-shadow 0.2s;
+      }
+
+      .joystick-stick.active {
+        box-shadow: 0 5px 25px rgba(233, 69, 96, 0.8);
+      }
+
+      #player-info {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+        font-size: 16px;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 5px 15px;
+        border-radius: 20px;
+      }
+
+      .octopus-icon {
+        font-size: 24px;
+        margin-right: 5px;
+      }
+
+      #connection-status {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #4ade80;
+        font-size: 12px;
+      }
+
+      #connection-status.disconnected {
+        color: #ef4444;
+      }
+
+      /* Left joystick color variant */
+      .left-zone .joystick-stick {
+        background: linear-gradient(145deg, #06b6d4, #0891b2);
+        box-shadow: 0 5px 15px rgba(6, 182, 212, 0.4);
+      }
+
+      .left-zone .joystick-stick.active {
+        box-shadow: 0 5px 25px rgba(6, 182, 212, 0.8);
+      }
+
+      /* Right joystick color variant */
+      .right-zone .joystick-stick {
+        background: linear-gradient(145deg, #f59e0b, #d97706);
+        box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+      }
+
+      .right-zone .joystick-stick.active {
+        box-shadow: 0 5px 25px rgba(245, 158, 11, 0.8);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="player-info">
+      <span class="octopus-icon">*</span>
+      <span id="player-name">Connecting...</span>
+    </div>
+
+    <div id="controller-container">
+      <!-- Left Joystick (Limb 0) -->
+      <div class="joystick-zone left-zone">
+        <div class="limb-label">Left Tentacle</div>
+        <div class="joystick-wrapper" id="joystick-left">
+          <div class="joystick-base">
+            <div class="joystick-stick" id="stick-left"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Joystick (Limb 1) -->
+      <div class="joystick-zone right-zone">
+        <div class="limb-label">Right Tentacle</div>
+        <div class="joystick-wrapper" id="joystick-right">
+          <div class="joystick-base">
+            <div class="joystick-stick" id="stick-right"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="connection-status">* Connected</div>
+
+    <script>
+      // Controller App
+      class OctoController {
+        constructor() {
+          this.airconsole = new AirConsole({ orientation: "landscape" });
+
+          // Input state
+          this.leftInput = { x: 0, y: 0 };
+          this.rightInput = { x: 0, y: 0 };
+
+          // Touch tracking
+          this.leftTouch = null;
+          this.rightTouch = null;
+
+          // DOM Elements
+          this.stickLeft = document.getElementById("stick-left");
+          this.stickRight = document.getElementById("stick-right");
+          this.joystickLeft = document.getElementById("joystick-left");
+          this.joystickRight = document.getElementById("joystick-right");
+          this.playerName = document.getElementById("player-name");
+          this.connectionStatus = document.getElementById("connection-status");
+
+          // Joystick config
+          this.maxDistance = 45; // Max pixels stick can move from center
+
+          this.setupEventListeners();
+          this.setupAirConsole();
+
+          // Send input updates at 60fps
+          this.lastSentLeft = { x: 0, y: 0 };
+          this.lastSentRight = { x: 0, y: 0 };
+          setInterval(() => this.sendInputUpdate(), 1000 / 30); // 30 updates/sec
+        }
+
+        setupAirConsole() {
+          this.airconsole.onReady = (code) => {
+            console.log("AirConsole ready!", code);
+            this.connectionStatus.textContent = "* Connected";
+            this.connectionStatus.classList.remove("disconnected");
+          };
+
+          this.airconsole.onConnect = (deviceId) => {
+            console.log("Device connected:", deviceId);
+            this.updatePlayerInfo();
+          };
+
+          this.airconsole.onDisconnect = (deviceId) => {
+            console.log("Device disconnected:", deviceId);
+            this.connectionStatus.textContent = "* Disconnected";
+            this.connectionStatus.classList.add("disconnected");
+          };
+
+          this.airconsole.onMessage = (from, data) => {
+            console.log("Message from screen:", data);
+            // Handle any screen-to-controller messages here
+            if (data.type === "vibrate") {
+              this.vibrate(data.duration || 50);
+            }
+          };
+        }
+
+        updatePlayerInfo() {
+          const nickname = this.airconsole.getNickname();
+          const playerNumber = this.airconsole
+            .getControllerDeviceIds()
+            .indexOf(this.airconsole.getDeviceId());
+          this.playerName.textContent = `${nickname} (P${playerNumber + 1})`;
+        }
+
+        setupEventListeners() {
+          // Touch events for left joystick
+          this.joystickLeft.addEventListener("touchstart", (e) =>
+            this.onTouchStart(e, "left"),
+          );
+          this.joystickLeft.addEventListener("touchmove", (e) =>
+            this.onTouchMove(e, "left"),
+          );
+          this.joystickLeft.addEventListener("touchend", (e) =>
+            this.onTouchEnd(e, "left"),
+          );
+          this.joystickLeft.addEventListener("touchcancel", (e) =>
+            this.onTouchEnd(e, "left"),
+          );
+
+          // Touch events for right joystick
+          this.joystickRight.addEventListener("touchstart", (e) =>
+            this.onTouchStart(e, "right"),
+          );
+          this.joystickRight.addEventListener("touchmove", (e) =>
+            this.onTouchMove(e, "right"),
+          );
+          this.joystickRight.addEventListener("touchend", (e) =>
+            this.onTouchEnd(e, "right"),
+          );
+          this.joystickRight.addEventListener("touchcancel", (e) =>
+            this.onTouchEnd(e, "right"),
+          );
+
+          // Mouse events for testing in browser
+          this.joystickLeft.addEventListener("mousedown", (e) =>
+            this.onMouseDown(e, "left"),
+          );
+          this.joystickRight.addEventListener("mousedown", (e) =>
+            this.onMouseDown(e, "right"),
+          );
+          document.addEventListener("mousemove", (e) => this.onMouseMove(e));
+          document.addEventListener("mouseup", (e) => this.onMouseUp(e));
+        }
+
+        onTouchStart(e, side) {
+          e.preventDefault();
+          const touch = e.changedTouches[0];
+
+          if (side === "left") {
+            this.leftTouch = touch.identifier;
+            this.stickLeft.classList.add("active");
+          } else {
+            this.rightTouch = touch.identifier;
+            this.stickRight.classList.add("active");
+          }
+
+          this.updateJoystick(touch, side);
+        }
+
+        onTouchMove(e, side) {
+          e.preventDefault();
+          const touchId = side === "left" ? this.leftTouch : this.rightTouch;
+
+          for (let touch of e.changedTouches) {
+            if (touch.identifier === touchId) {
+              this.updateJoystick(touch, side);
+              break;
+            }
+          }
+        }
+
+        onTouchEnd(e, side) {
+          e.preventDefault();
+          const touchId = side === "left" ? this.leftTouch : this.rightTouch;
+
+          for (let touch of e.changedTouches) {
+            if (touch.identifier === touchId) {
+              this.resetJoystick(side);
+              break;
+            }
+          }
+        }
+
+        onMouseDown(e, side) {
+          e.preventDefault();
+          this.mouseDown = side;
+          const stick = side === "left" ? this.stickLeft : this.stickRight;
+          stick.classList.add("active");
+          this.updateJoystick(e, side);
+        }
+
+        onMouseMove(e) {
+          if (this.mouseDown) {
+            this.updateJoystick(e, this.mouseDown);
+          }
+        }
+
+        onMouseUp(e) {
+          if (this.mouseDown) {
+            this.resetJoystick(this.mouseDown);
+            this.mouseDown = null;
+          }
+        }
+
+        updateJoystick(event, side) {
+          const joystick =
+            side === "left" ? this.joystickLeft : this.joystickRight;
+          const stick = side === "left" ? this.stickLeft : this.stickRight;
+
+          const rect = joystick.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+
+          const clientX = event.clientX || event.pageX;
+          const clientY = event.clientY || event.pageY;
+
+          let deltaX = clientX - centerX;
+          let deltaY = clientY - centerY;
+
+          // Clamp to max distance
+          const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+          if (distance > this.maxDistance) {
+            deltaX = (deltaX / distance) * this.maxDistance;
+            deltaY = (deltaY / distance) * this.maxDistance;
+          }
+
+          // Update stick visual position
+          stick.style.left = `calc(50% + ${deltaX}px)`;
+          stick.style.top = `calc(50% + ${deltaY}px)`;
+
+          // Normalize to -1 to 1
+          const normalizedX = deltaX / this.maxDistance;
+          const normalizedY = -deltaY / this.maxDistance; // Invert Y for Unity
+
+          if (side === "left") {
+            this.leftInput.x = normalizedX;
+            this.leftInput.y = normalizedY;
+          } else {
+            this.rightInput.x = normalizedX;
+            this.rightInput.y = normalizedY;
+          }
+        }
+
+        resetJoystick(side) {
+          const stick = side === "left" ? this.stickLeft : this.stickRight;
+
+          stick.style.left = "50%";
+          stick.style.top = "50%";
+          stick.classList.remove("active");
+
+          if (side === "left") {
+            this.leftTouch = null;
+            this.leftInput.x = 0;
+            this.leftInput.y = 0;
+          } else {
+            this.rightTouch = null;
+            this.rightInput.x = 0;
+            this.rightInput.y = 0;
+          }
+        }
+
+        sendInputUpdate() {
+          // Only send if input changed (to reduce network traffic)
+          const leftChanged =
+            Math.abs(this.leftInput.x - this.lastSentLeft.x) > 0.01 ||
+            Math.abs(this.leftInput.y - this.lastSentLeft.y) > 0.01;
+
+          const rightChanged =
+            Math.abs(this.rightInput.x - this.lastSentRight.x) > 0.01 ||
+            Math.abs(this.rightInput.y - this.lastSentRight.y) > 0.01;
+
+          if (leftChanged || rightChanged) {
+            // Send dual joystick format
+            this.airconsole.message(AirConsole.SCREEN, {
+              type: "dual_joystick",
+              left: {
+                x: Math.round(this.leftInput.x * 100) / 100,
+                y: Math.round(this.leftInput.y * 100) / 100,
+              },
+              right: {
+                x: Math.round(this.rightInput.x * 100) / 100,
+                y: Math.round(this.rightInput.y * 100) / 100,
+              },
+            });
+
+            this.lastSentLeft = { ...this.leftInput };
+            this.lastSentRight = { ...this.rightInput };
+          }
+        }
+
+        vibrate(duration) {
+          if (navigator.vibrate) {
+            navigator.vibrate(duration);
+          }
+        }
+      }
+
+      // Initialize controller
+      const controller = new OctoController();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Unity\\CodeMonkey\\___________ProjectFiles\\ProjectFiles_PickUpDropObjects\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{958B9AB5-A86B-F710-D60C-C4FC183E6D3B}|Assembly-CSharp.csproj|c:\\unity\\codemonkey\\___________projectfiles\\projectfiles_pickupdropobjects\\assets\\pickupdropobjects\\scripts\\playerpickupdrop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{958B9AB5-A86B-F710-D60C-C4FC183E6D3B}|Assembly-CSharp.csproj|solutionrelative:assets\\pickupdropobjects\\scripts\\playerpickupdrop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{958B9AB5-A86B-F710-D60C-C4FC183E6D3B}|Assembly-CSharp.csproj|c:\\unity\\codemonkey\\___________projectfiles\\projectfiles_pickupdropobjects\\assets\\_\\base\\basescripts\\mouse3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{958B9AB5-A86B-F710-D60C-C4FC183E6D3B}|Assembly-CSharp.csproj|solutionrelative:assets\\_\\base\\basescripts\\mouse3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{958B9AB5-A86B-F710-D60C-C4FC183E6D3B}|Assembly-CSharp.csproj|c:\\unity\\codemonkey\\___________projectfiles\\projectfiles_pickupdropobjects\\assets\\_\\firstpersoncontroller\\scripts\\firstpersoncontrollerinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{958B9AB5-A86B-F710-D60C-C4FC183E6D3B}|Assembly-CSharp.csproj|solutionrelative:assets\\_\\firstpersoncontroller\\scripts\\firstpersoncontrollerinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{958B9AB5-A86B-F710-D60C-C4FC183E6D3B}|Assembly-CSharp.csproj|c:\\unity\\codemonkey\\___________projectfiles\\projectfiles_pickupdropobjects\\assets\\_\\firstpersoncontroller\\scripts\\firstpersoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{958B9AB5-A86B-F710-D60C-C4FC183E6D3B}|Assembly-CSharp.csproj|solutionrelative:assets\\_\\firstpersoncontroller\\scripts\\firstpersoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{958B9AB5-A86B-F710-D60C-C4FC183E6D3B}|Assembly-CSharp.csproj|c:\\unity\\codemonkey\\___________projectfiles\\projectfiles_pickupdropobjects\\assets\\_\\firstpersoncontroller\\scripts\\firstpersoncontrollercm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{958B9AB5-A86B-F710-D60C-C4FC183E6D3B}|Assembly-CSharp.csproj|solutionrelative:assets\\_\\firstpersoncontroller\\scripts\\firstpersoncontrollercm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{ebe3f1d5-feac-4131-bf03-0e85ffb89a89}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{ebe3f1d5-feac-4131-bf03-0e85ffb89a89}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{26341fe2-71dd-46fd-bb1b-2e51a92a0d64}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PlayerPickUpDrop.cs",
+              "DocumentMoniker": "C:\\Unity\\CodeMonkey\\___________ProjectFiles\\ProjectFiles_PickUpDropObjects\\Assets\\PickUpDropObjects\\Scripts\\PlayerPickUpDrop.cs",
+              "RelativeDocumentMoniker": "Assets\\PickUpDropObjects\\Scripts\\PlayerPickUpDrop.cs",
+              "ToolTip": "C:\\Unity\\CodeMonkey\\___________ProjectFiles\\ProjectFiles_PickUpDropObjects\\Assets\\PickUpDropObjects\\Scripts\\PlayerPickUpDrop.cs",
+              "RelativeToolTip": "Assets\\PickUpDropObjects\\Scripts\\PlayerPickUpDrop.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAgwA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T08:43:36.587Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Mouse3D.cs",
+              "DocumentMoniker": "C:\\Unity\\CodeMonkey\\___________ProjectFiles\\ProjectFiles_PickUpDropObjects\\Assets\\_\\Base\\BaseScripts\\Mouse3D.cs",
+              "RelativeDocumentMoniker": "Assets\\_\\Base\\BaseScripts\\Mouse3D.cs",
+              "ToolTip": "C:\\Unity\\CodeMonkey\\___________ProjectFiles\\ProjectFiles_PickUpDropObjects\\Assets\\_\\Base\\BaseScripts\\Mouse3D.cs",
+              "RelativeToolTip": "Assets\\_\\Base\\BaseScripts\\Mouse3D.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAgwB4AAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T08:43:18.912Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FirstPersonControllerInput.cs",
+              "DocumentMoniker": "C:\\Unity\\CodeMonkey\\___________ProjectFiles\\ProjectFiles_PickUpDropObjects\\Assets\\_\\FirstPersonController\\Scripts\\FirstPersonControllerInput.cs",
+              "RelativeDocumentMoniker": "Assets\\_\\FirstPersonController\\Scripts\\FirstPersonControllerInput.cs",
+              "ToolTip": "C:\\Unity\\CodeMonkey\\___________ProjectFiles\\ProjectFiles_PickUpDropObjects\\Assets\\_\\FirstPersonController\\Scripts\\FirstPersonControllerInput.cs",
+              "RelativeToolTip": "Assets\\_\\FirstPersonController\\Scripts\\FirstPersonControllerInput.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T08:43:08.712Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FirstPersonController.cs",
+              "DocumentMoniker": "C:\\Unity\\CodeMonkey\\___________ProjectFiles\\ProjectFiles_PickUpDropObjects\\Assets\\_\\FirstPersonController\\Scripts\\FirstPersonController.cs",
+              "RelativeDocumentMoniker": "Assets\\_\\FirstPersonController\\Scripts\\FirstPersonController.cs",
+              "ToolTip": "C:\\Unity\\CodeMonkey\\___________ProjectFiles\\ProjectFiles_PickUpDropObjects\\Assets\\_\\FirstPersonController\\Scripts\\FirstPersonController.cs",
+              "RelativeToolTip": "Assets\\_\\FirstPersonController\\Scripts\\FirstPersonController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T08:43:02.304Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FirstPersonControllerCM.cs",
+              "DocumentMoniker": "C:\\Unity\\CodeMonkey\\___________ProjectFiles\\ProjectFiles_PickUpDropObjects\\Assets\\_\\FirstPersonController\\Scripts\\FirstPersonControllerCM.cs",
+              "RelativeDocumentMoniker": "Assets\\_\\FirstPersonController\\Scripts\\FirstPersonControllerCM.cs",
+              "ToolTip": "C:\\Unity\\CodeMonkey\\___________ProjectFiles\\ProjectFiles_PickUpDropObjects\\Assets\\_\\FirstPersonController\\Scripts\\FirstPersonControllerCM.cs",
+              "RelativeToolTip": "Assets\\_\\FirstPersonController\\Scripts\\FirstPersonControllerCM.cs",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAAAA8AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T08:42:55.051Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
