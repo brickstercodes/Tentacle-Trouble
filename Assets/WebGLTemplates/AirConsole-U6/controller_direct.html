@@ -1,188 +1,510 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-  <meta charset="UTF-8"/>
-  <title>Octo Controller</title>
-  <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      touch-action: none;
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      user-select: none;
-    }
-    html, body {
-      width: 100%; height: 100%; overflow: hidden;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    #status-bar {
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 40px; display: flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.4); color: #fff; font-size: 14px; z-index: 10;
-    }
-    #status-bar .dot {
-      width: 10px; height: 10px; border-radius: 50%;
-      margin-right: 8px; background: #ef4444;
-    }
-    #status-bar .dot.connected { background: #4ade80; }
-    #controller {
-      width: 100%; height: 100%; display: flex;
-      justify-content: space-between; align-items: center; padding: 20px;
-      padding-top: 50px;
-    }
-    .zone {
-      width: 45%; height: 90%; display: flex;
-      flex-direction: column; align-items: center; justify-content: center;
-    }
-    .zone-label {
-      color: rgba(255,255,255,0.7); font-size: 12px;
-      text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;
-    }
-    .stick-area {
-      width: 160px; height: 160px; position: relative;
-      border-radius: 50%; background: rgba(255,255,255,0.08);
-      border: 2px solid rgba(255,255,255,0.2);
-    }
-    .stick {
-      width: 64px; height: 64px; border-radius: 50%;
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      transition: box-shadow 0.15s;
-    }
-    .left .stick {
-      background: linear-gradient(145deg, #06b6d4, #0891b2);
-      box-shadow: 0 4px 12px rgba(6,182,212,0.4);
-    }
-    .left .stick.active { box-shadow: 0 4px 20px rgba(6,182,212,0.8); }
-    .right .stick {
-      background: linear-gradient(145deg, #f59e0b, #d97706);
-      box-shadow: 0 4px 12px rgba(245,158,11,0.4);
-    }
-    .right .stick.active { box-shadow: 0 4px 20px rgba(245,158,11,0.8); }
-  </style>
-</head>
-<body>
-  <div id="status-bar">
-    <div class="dot" id="dot"></div>
-    <span id="status-text">Connecting...</span>
-  </div>
-  <div id="controller">
-    <div class="zone left">
-      <div class="zone-label">Left Tentacle</div>
-      <div class="stick-area" id="area-left">
-        <div class="stick" id="stick-left"></div>
-      </div>
-    </div>
-    <div class="zone right">
-      <div class="zone-label">Right Tentacle</div>
-      <div class="stick-area" id="area-right">
-        <div class="stick" id="stick-right"></div>
-      </div>
-    </div>
-  </div>
+  <head>
+    <meta
+      name="viewport"
+      content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <meta charset="UTF-8" />
+    <title>Octo Controller</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        touch-action: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: linear-gradient(
+          135deg,
+          #1a1a2e 0%,
+          #16213e 50%,
+          #0f3460 100%
+        );
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      #status-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.4);
+        color: #fff;
+        font-size: 14px;
+        z-index: 10;
+      }
+      #status-bar .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 8px;
+        background: #ef4444;
+      }
+      #status-bar .dot.connected {
+        background: #4ade80;
+      }
+      #controller {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        padding-top: 50px;
+      }
+      .zone {
+        width: 38%;
+        height: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .zone-label {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+      }
+      .stick-area {
+        width: 160px;
+        height: 160px;
+        position: relative;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+      }
+      .stick {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: box-shadow 0.15s;
+      }
+      .left .stick {
+        background: linear-gradient(145deg, #06b6d4, #0891b2);
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+      }
+      .left .stick.active {
+        box-shadow: 0 4px 20px rgba(6, 182, 212, 0.8);
+      }
+      .right .stick {
+        background: linear-gradient(145deg, #f59e0b, #d97706);
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+      }
+      .right .stick.active {
+        box-shadow: 0 4px 20px rgba(245, 158, 11, 0.8);
+      }
 
-  <script>
-    var ws, deviceId = null;
-    var leftInput = {x:0,y:0}, rightInput = {x:0,y:0};
-    var leftTouch = null, rightTouch = null, mouseDown = null;
-    var MAX_DIST = 48;
+      /* Action Button */
+      .btn-zone {
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-btn {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .action-btn .btn-bg {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .action-btn .btn-label {
+        position: relative;
+        z-index: 2;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        pointer-events: none;
+        text-align: center;
+        line-height: 1.2;
+      }
+      .action-btn svg.ring {
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        width: calc(100% + 8px);
+        height: calc(100% + 8px);
+        transform: rotate(-90deg);
+      }
+      .action-btn svg.ring circle {
+        fill: none;
+        stroke-width: 4;
+        stroke-linecap: round;
+      }
+      .action-btn svg.ring .track {
+        stroke: rgba(255, 255, 255, 0.15);
+      }
+      .action-btn svg.ring .progress {
+        stroke-dasharray: 283;
+        stroke-dashoffset: 283;
+        transition: stroke-dashoffset 0.1s linear;
+      }
 
-    var dot = document.getElementById('dot');
-    var statusText = document.getElementById('status-text');
-    var stickL = document.getElementById('stick-left');
-    var stickR = document.getElementById('stick-right');
-    var areaL = document.getElementById('area-left');
-    var areaR = document.getElementById('area-right');
+      /* Grab (P1) */
+      .action-btn.grab .btn-bg {
+        background: radial-gradient(circle, #4caf50 0%, #2e7d32 100%);
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.5);
+      }
+      .action-btn.grab.active .btn-bg {
+        box-shadow: 0 4px 25px rgba(76, 175, 80, 0.9);
+      }
+      .action-btn.grab .progress {
+        stroke: #81c784;
+      }
 
-    function connect() {
-      var host = location.hostname;
-      var url = 'ws://' + host + ':7844/controller';
-      statusText.textContent = 'Connecting...';
-      dot.classList.remove('connected');
+      /* Drop (P2) */
+      .action-btn.drop .btn-bg {
+        background: radial-gradient(circle, #f44336 0%, #c62828 100%);
+        box-shadow: 0 4px 15px rgba(244, 67, 54, 0.5);
+      }
+      .action-btn.drop.active .btn-bg {
+        box-shadow: 0 4px 25px rgba(244, 67, 54, 0.9);
+        transform: scale(0.92);
+      }
+      .action-btn.drop .progress {
+        stroke: #ef9a9a;
+      }
 
-      ws = new WebSocket(url);
-      ws.onopen = function() {
-        dot.classList.add('connected');
-        statusText.textContent = 'Connected - waiting for player assignment...';
-      };
-      ws.onmessage = function(e) {
-        var msg = JSON.parse(e.data);
-        if (msg.type === 'assigned') {
-          deviceId = msg.device_id;
-          statusText.textContent = 'Player ' + deviceId;
+      /* Anchor (P3) */
+      .action-btn.anchor .btn-bg {
+        background: radial-gradient(circle, #2196f3 0%, #1565c0 100%);
+        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.5);
+      }
+      .action-btn.anchor.active .btn-bg {
+        box-shadow: 0 4px 25px rgba(33, 150, 243, 0.9);
+      }
+      .action-btn.anchor.active {
+        animation: pulseAnchor 0.8s ease-in-out infinite;
+      }
+      @keyframes pulseAnchor {
+        0%,
+        100% {
+          transform: scale(1);
         }
+        50% {
+          transform: scale(1.08);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="status-bar">
+      <div class="dot" id="dot"></div>
+      <span id="status-text">Connecting...</span>
+    </div>
+    <div id="controller">
+      <div class="zone left">
+        <div class="zone-label">Left Tentacle</div>
+        <div class="stick-area" id="area-left">
+          <div class="stick" id="stick-left"></div>
+        </div>
+      </div>
+      <div class="btn-zone">
+        <div class="action-btn" id="action-btn">
+          <div class="btn-bg"></div>
+          <svg class="ring" viewBox="0 0 98 98">
+            <circle class="track" cx="49" cy="49" r="45" />
+            <circle class="progress" id="btn-progress" cx="49" cy="49" r="45" />
+          </svg>
+          <div class="btn-label" id="btn-label">...</div>
+        </div>
+      </div>
+      <div class="zone right">
+        <div class="zone-label">Right Tentacle</div>
+        <div class="stick-area" id="area-right">
+          <div class="stick" id="stick-right"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var ws,
+        deviceId = -1;
+      var leftInput = { x: 0, y: 0 },
+        rightInput = { x: 0, y: 0 };
+      var leftTouch = null,
+        rightTouch = null,
+        mouseDown = null;
+      var MAX_DIST = 48;
+      var buttonAction = null; // "grab", "drop", or "anchor"
+      var buttonPressed = false;
+      var grabRingTimer = null;
+      var GRAB_DURATION = 3000; // 3 seconds in ms
+
+      var dot = document.getElementById("dot");
+      var statusText = document.getElementById("status-text");
+      var stickL = document.getElementById("stick-left");
+      var stickR = document.getElementById("stick-right");
+      var areaL = document.getElementById("area-left");
+      var areaR = document.getElementById("area-right");
+      var actionBtn = document.getElementById("action-btn");
+      var btnLabel = document.getElementById("btn-label");
+      var btnProgress = document.getElementById("btn-progress");
+
+      // Per-player button config
+      var BUTTON_CONFIG = {
+        0: { action: "grab", label: "GRAB", cssClass: "grab" },
+        1: { action: "drop", label: "DROP", cssClass: "drop" },
+        2: { action: "anchor", label: "ANCHOR", cssClass: "anchor" },
       };
-      ws.onclose = function() {
-        dot.classList.remove('connected');
-        statusText.textContent = 'Disconnected - reconnecting...';
-        deviceId = null;
-        setTimeout(connect, 2000);
-      };
-      ws.onerror = function() { ws.close(); };
-    }
-    connect();
 
-    // Send input at 30fps
-    setInterval(function() {
-      if (!ws || ws.readyState !== 1) return;
-      ws.send(JSON.stringify({
-        type: 'dual_joystick',
-        left: {x: r(leftInput.x), y: r(leftInput.y)},
-        right: {x: r(rightInput.x), y: r(rightInput.y)}
-      }));
-    }, 33);
+      function configureButton(slot) {
+        var cfg = BUTTON_CONFIG[slot];
+        if (!cfg) {
+          actionBtn.style.display = "none";
+          return;
+        }
+        buttonAction = cfg.action;
+        btnLabel.textContent = cfg.label;
+        actionBtn.className = "action-btn " + cfg.cssClass;
+      }
 
-    function r(v) { return Math.round(v * 100) / 100; }
+      function sendButton(state) {
+        if (!ws || ws.readyState !== 1 || !buttonAction) return;
+        ws.send(
+          JSON.stringify({
+            type: "button",
+            action: buttonAction,
+            state: state,
+          }),
+        );
+      }
 
-    // --- Joystick logic ---
-    function updateStick(evt, side) {
-      var area = side === 'left' ? areaL : areaR;
-      var stick = side === 'left' ? stickL : stickR;
-      var rect = area.getBoundingClientRect();
-      var cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
-      var dx = (evt.clientX || evt.pageX) - cx;
-      var dy = (evt.clientY || evt.pageY) - cy;
-      var dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist > MAX_DIST) { dx = dx/dist*MAX_DIST; dy = dy/dist*MAX_DIST; }
-      stick.style.left = 'calc(50% + ' + dx + 'px)';
-      stick.style.top = 'calc(50% + ' + dy + 'px)';
-      var inp = side === 'left' ? leftInput : rightInput;
-      inp.x = dx / MAX_DIST;
-      inp.y = -dy / MAX_DIST;
-    }
+      function onBtnDown(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (buttonPressed) return;
+        buttonPressed = true;
+        actionBtn.classList.add("active");
+        sendButton("pressed");
 
-    function resetStick(side) {
-      var stick = side === 'left' ? stickL : stickR;
-      stick.style.left = '50%'; stick.style.top = '50%';
-      stick.classList.remove('active');
-      if (side === 'left') { leftTouch = null; leftInput.x = 0; leftInput.y = 0; }
-      else { rightTouch = null; rightInput.x = 0; rightInput.y = 0; }
-    }
+        // Grab: animate ring over 3s
+        if (buttonAction === "grab") {
+          var start = Date.now();
+          grabRingTimer = setInterval(function () {
+            var elapsed = Date.now() - start;
+            var pct = Math.min(elapsed / GRAB_DURATION, 1);
+            btnProgress.style.strokeDashoffset = 283 - 283 * pct;
+            if (pct >= 1) clearInterval(grabRingTimer);
+          }, 30);
+        }
+        // Anchor: show full ring while held
+        if (buttonAction === "anchor") {
+          btnProgress.style.strokeDashoffset = "0";
+        }
+      }
 
-    // Touch events
-    areaL.addEventListener('touchstart', function(e) { e.preventDefault(); leftTouch = e.changedTouches[0].identifier; stickL.classList.add('active'); updateStick(e.changedTouches[0], 'left'); });
-    areaR.addEventListener('touchstart', function(e) { e.preventDefault(); rightTouch = e.changedTouches[0].identifier; stickR.classList.add('active'); updateStick(e.changedTouches[0], 'right'); });
+      function onBtnUp(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!buttonPressed) return;
+        buttonPressed = false;
+        actionBtn.classList.remove("active");
+        sendButton("released");
 
-    areaL.addEventListener('touchmove', function(e) { e.preventDefault(); for (var t of e.changedTouches) if (t.identifier === leftTouch) updateStick(t, 'left'); });
-    areaR.addEventListener('touchmove', function(e) { e.preventDefault(); for (var t of e.changedTouches) if (t.identifier === rightTouch) updateStick(t, 'right'); });
+        // Reset ring
+        if (grabRingTimer) {
+          clearInterval(grabRingTimer);
+          grabRingTimer = null;
+        }
+        btnProgress.style.strokeDashoffset = "283";
+      }
 
-    areaL.addEventListener('touchend', function(e) { e.preventDefault(); for (var t of e.changedTouches) if (t.identifier === leftTouch) resetStick('left'); });
-    areaL.addEventListener('touchcancel', function(e) { e.preventDefault(); for (var t of e.changedTouches) if (t.identifier === leftTouch) resetStick('left'); });
-    areaR.addEventListener('touchend', function(e) { e.preventDefault(); for (var t of e.changedTouches) if (t.identifier === rightTouch) resetStick('right'); });
-    areaR.addEventListener('touchcancel', function(e) { e.preventDefault(); for (var t of e.changedTouches) if (t.identifier === rightTouch) resetStick('right'); });
+      actionBtn.addEventListener("touchstart", onBtnDown);
+      actionBtn.addEventListener("touchend", onBtnUp);
+      actionBtn.addEventListener("touchcancel", onBtnUp);
+      actionBtn.addEventListener("mousedown", onBtnDown);
+      actionBtn.addEventListener("mouseup", onBtnUp);
 
-    // Mouse events (for desktop testing)
-    areaL.addEventListener('mousedown', function(e) { e.preventDefault(); mouseDown = 'left'; stickL.classList.add('active'); updateStick(e, 'left'); });
-    areaR.addEventListener('mousedown', function(e) { e.preventDefault(); mouseDown = 'right'; stickR.classList.add('active'); updateStick(e, 'right'); });
-    document.addEventListener('mousemove', function(e) { if (mouseDown) updateStick(e, mouseDown); });
-    document.addEventListener('mouseup', function() { if (mouseDown) { resetStick(mouseDown); mouseDown = null; } });
+      function connect() {
+        var host = location.hostname;
+        var url = "ws://" + host + ":7844/controller";
+        statusText.textContent = "Connecting...";
+        dot.classList.remove("connected");
 
-    // Lock to landscape
-    if (screen.orientation && screen.orientation.lock) {
-      screen.orientation.lock('landscape').catch(function(){});
-    }
-  </script>
-</body>
+        ws = new WebSocket(url);
+        ws.onopen = function () {
+          dot.classList.add("connected");
+          statusText.textContent =
+            "Connected - waiting for player assignment...";
+        };
+        ws.onmessage = function (e) {
+          var msg = JSON.parse(e.data);
+          if (msg.type === "assigned") {
+            deviceId = msg.device_id;
+            statusText.textContent = "Player " + (deviceId + 1);
+            configureButton(deviceId);
+          }
+        };
+        ws.onclose = function () {
+          dot.classList.remove("connected");
+          statusText.textContent = "Disconnected - reconnecting...";
+          deviceId = -1;
+          setTimeout(connect, 2000);
+        };
+        ws.onerror = function () {
+          ws.close();
+        };
+      }
+      connect();
+
+      // Send joystick input at 30fps
+      setInterval(function () {
+        if (!ws || ws.readyState !== 1) return;
+        ws.send(
+          JSON.stringify({
+            type: "dual_joystick",
+            left: { x: r(leftInput.x), y: r(leftInput.y) },
+            right: { x: r(rightInput.x), y: r(rightInput.y) },
+          }),
+        );
+      }, 33);
+
+      function r(v) {
+        return Math.round(v * 100) / 100;
+      }
+
+      // --- Joystick logic ---
+      function updateStick(evt, side) {
+        var area = side === "left" ? areaL : areaR;
+        var stick = side === "left" ? stickL : stickR;
+        var rect = area.getBoundingClientRect();
+        var cx = rect.left + rect.width / 2,
+          cy = rect.top + rect.height / 2;
+        var dx = (evt.clientX || evt.pageX) - cx;
+        var dy = (evt.clientY || evt.pageY) - cy;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist > MAX_DIST) {
+          dx = (dx / dist) * MAX_DIST;
+          dy = (dy / dist) * MAX_DIST;
+        }
+        stick.style.left = "calc(50% + " + dx + "px)";
+        stick.style.top = "calc(50% + " + dy + "px)";
+        var inp = side === "left" ? leftInput : rightInput;
+        inp.x = dx / MAX_DIST;
+        inp.y = -dy / MAX_DIST;
+      }
+
+      function resetStick(side) {
+        var stick = side === "left" ? stickL : stickR;
+        stick.style.left = "50%";
+        stick.style.top = "50%";
+        stick.classList.remove("active");
+        if (side === "left") {
+          leftTouch = null;
+          leftInput.x = 0;
+          leftInput.y = 0;
+        } else {
+          rightTouch = null;
+          rightInput.x = 0;
+          rightInput.y = 0;
+        }
+      }
+
+      // Touch events
+      areaL.addEventListener("touchstart", function (e) {
+        e.preventDefault();
+        leftTouch = e.changedTouches[0].identifier;
+        stickL.classList.add("active");
+        updateStick(e.changedTouches[0], "left");
+      });
+      areaR.addEventListener("touchstart", function (e) {
+        e.preventDefault();
+        rightTouch = e.changedTouches[0].identifier;
+        stickR.classList.add("active");
+        updateStick(e.changedTouches[0], "right");
+      });
+
+      areaL.addEventListener("touchmove", function (e) {
+        e.preventDefault();
+        for (var t of e.changedTouches)
+          if (t.identifier === leftTouch) updateStick(t, "left");
+      });
+      areaR.addEventListener("touchmove", function (e) {
+        e.preventDefault();
+        for (var t of e.changedTouches)
+          if (t.identifier === rightTouch) updateStick(t, "right");
+      });
+
+      areaL.addEventListener("touchend", function (e) {
+        e.preventDefault();
+        for (var t of e.changedTouches)
+          if (t.identifier === leftTouch) resetStick("left");
+      });
+      areaL.addEventListener("touchcancel", function (e) {
+        e.preventDefault();
+        for (var t of e.changedTouches)
+          if (t.identifier === leftTouch) resetStick("left");
+      });
+      areaR.addEventListener("touchend", function (e) {
+        e.preventDefault();
+        for (var t of e.changedTouches)
+          if (t.identifier === rightTouch) resetStick("right");
+      });
+      areaR.addEventListener("touchcancel", function (e) {
+        e.preventDefault();
+        for (var t of e.changedTouches)
+          if (t.identifier === rightTouch) resetStick("right");
+      });
+
+      // Mouse events (for desktop testing)
+      areaL.addEventListener("mousedown", function (e) {
+        e.preventDefault();
+        mouseDown = "left";
+        stickL.classList.add("active");
+        updateStick(e, "left");
+      });
+      areaR.addEventListener("mousedown", function (e) {
+        e.preventDefault();
+        mouseDown = "right";
+        stickR.classList.add("active");
+        updateStick(e, "right");
+      });
+      document.addEventListener("mousemove", function (e) {
+        if (mouseDown) updateStick(e, mouseDown);
+      });
+      document.addEventListener("mouseup", function () {
+        if (mouseDown) {
+          resetStick(mouseDown);
+          mouseDown = null;
+        }
+      });
+
+      // Lock to landscape
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock("landscape").catch(function () {});
+      }
+    </script>
+  </body>
 </html>

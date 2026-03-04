@@ -48,6 +48,7 @@ namespace Octo.Input
         public event Action<int> OnPlayerConnected;                   // (playerNumber)
         public event Action<int> OnPlayerDisconnected;                // (playerNumber)
         public event Action OnAllPlayersReady;
+        public event Action<int, string, bool> OnButtonStateChanged;  // (playerNumber, action, pressed)
 
         // Total limbs = maxPlayers * limbsPerPlayer
         private Vector2[] smoothedInputs;
@@ -224,7 +225,7 @@ namespace Octo.Input
                         break;
 
                     case "button":
-                        // Future: handle button presses (grab, release, etc.)
+                        ParseButton(playerNumber, data);
                         break;
 
                     default:
@@ -238,6 +239,20 @@ namespace Octo.Input
                 if (debugMode)
                     Debug.LogError($"[AirConsoleInputHandler] Error parsing message: {e.Message}\nData: {data}");
             }
+        }
+
+        private void ParseButton(int playerNumber, JToken data)
+        {
+            string action = data["action"]?.ToString();
+            bool pressed = data["state"]?.ToString() == "pressed";
+
+            if (string.IsNullOrEmpty(action)) return;
+
+            playerStates[playerNumber].SetButton(action, pressed);
+            OnButtonStateChanged?.Invoke(playerNumber, action, pressed);
+
+            if (debugMode)
+                Debug.Log($"[AirConsoleInputHandler] Player {playerNumber + 1} button '{action}' {(pressed ? "pressed" : "released")}");
         }
 
         private void ParseSingleJoystick(int playerNumber, JToken data)
@@ -481,7 +496,39 @@ namespace Octo.Input
             directControllerActive[playerNumber] = false;
             playerStates[playerNumber].isConnected = false;
             playerStates[playerNumber].ClearInputs();
+            playerStates[playerNumber].ClearButtons();
             OnPlayerDisconnected?.Invoke(playerNumber);
+        }
+
+        /// <summary>
+        /// Set a button state for a player. Called by DirectControllerServer for the direct input path.
+        /// </summary>
+        public void SetButtonState(int playerNumber, string action, bool pressed)
+        {
+            if (playerNumber < 0 || playerNumber >= maxPlayers) return;
+            playerStates[playerNumber].SetButton(action, pressed);
+            OnButtonStateChanged?.Invoke(playerNumber, action, pressed);
+
+            if (debugMode)
+                Debug.Log($"[AirConsoleInputHandler] Player {playerNumber + 1} button '{action}' {(pressed ? "pressed" : "released")} (direct)");
+        }
+
+        /// <summary>
+        /// Check if a player's button action is currently pressed.
+        /// </summary>
+        public bool IsButtonPressed(int playerNumber, string action)
+        {
+            if (playerNumber < 0 || playerNumber >= maxPlayers) return false;
+            return playerStates[playerNumber].IsButtonPressed(action);
+        }
+
+        /// <summary>
+        /// Get how long a player has been holding a button (seconds). Returns 0 if not pressed.
+        /// </summary>
+        public float GetButtonHoldTime(int playerNumber, string action)
+        {
+            if (playerNumber < 0 || playerNumber >= maxPlayers) return 0f;
+            return playerStates[playerNumber].GetButtonHoldTime(action);
         }
 
         #endregion

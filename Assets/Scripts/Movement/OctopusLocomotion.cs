@@ -58,6 +58,9 @@ namespace Octo.Movement
         // Agreement level (0 = opposite, 1 = same direction)
         private float agreementLevel;
 
+        // Anchor: when true, octopus cannot move (P3 ability)
+        private bool isAnchored;
+
         // Components
         private Rigidbody rb;
         private CharacterController characterController;
@@ -111,6 +114,7 @@ namespace Octo.Movement
         private void Update()
         {
             if (moveTarget == null) return;
+            if (isAnchored) return; // P3 anchor freezes all movement
 
             // Get inputs from both "players"
             GetInputs();
@@ -256,6 +260,10 @@ namespace Octo.Movement
         /// Get the current agreement level (for head wobble, etc.)
         /// </summary>
         public float GetAgreementLevel() => agreementLevel;
+
+        /// <summary>Set by OctoGrabSystem when P3 holds the anchor button.</summary>
+        public void SetAnchored(bool anchored) => isAnchored = anchored;
+        public bool IsAnchored => isAnchored;
 
         /// <summary>
         /// Get the current velocity (for head physics, etc.)

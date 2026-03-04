@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Octo.Input
 {
@@ -48,6 +49,11 @@ namespace Octo.Input
         public LimbInputData leftLimb;      // First limb (e.g., limb 0, 2, 4, 6)
         public LimbInputData rightLimb;     // Second limb (e.g., limb 1, 3, 5, 7)
 
+        // Button states: action name -> pressed
+        private Dictionary<string, bool> buttonStates = new Dictionary<string, bool>();
+        // Button hold start times: action name -> Time.time when pressed
+        private Dictionary<string, float> buttonStartTimes = new Dictionary<string, float>();
+
         public PlayerInputState(int playerNum)
         {
             playerNumber = playerNum;
@@ -75,10 +81,57 @@ namespace Octo.Input
             return playerNumber * 2 + localLimbIndex;
         }
 
+        /// <summary>
+        /// Set a button's pressed state. Records Time.time on press for hold duration tracking.
+        /// </summary>
+        public void SetButton(string action, bool pressed)
+        {
+            buttonStates[action] = pressed;
+            if (pressed)
+            {
+                if (!buttonStartTimes.ContainsKey(action))
+                    buttonStartTimes[action] = Time.time;
+            }
+            else
+            {
+                buttonStartTimes.Remove(action);
+            }
+        }
+
+        /// <summary>
+        /// Check if a button action is currently pressed.
+        /// </summary>
+        public bool IsButtonPressed(string action)
+        {
+            return buttonStates.TryGetValue(action, out bool pressed) && pressed;
+        }
+
+        /// <summary>
+        /// Get how long a button has been held (seconds). Returns 0 if not pressed.
+        /// </summary>
+        public float GetButtonHoldTime(string action)
+        {
+            if (buttonStates.TryGetValue(action, out bool pressed) && pressed &&
+                buttonStartTimes.TryGetValue(action, out float startTime))
+            {
+                return Time.time - startTime;
+            }
+            return 0f;
+        }
+
         public void ClearInputs()
         {
             leftLimb.Clear();
             rightLimb.Clear();
+        }
+
+        /// <summary>
+        /// Clear all button states (called on disconnect).
+        /// </summary>
+        public void ClearButtons()
+        {
+            buttonStates.Clear();
+            buttonStartTimes.Clear();
         }
     }
 }

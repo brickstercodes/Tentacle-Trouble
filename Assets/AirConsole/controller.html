@@ -60,12 +60,111 @@
       }
 
       .joystick-zone {
-        width: 45%;
+        width: 38%;
         height: 80%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+      }
+
+      .btn-zone {
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .action-btn {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .action-btn .btn-bg {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .action-btn .btn-label {
+        position: relative;
+        z-index: 2;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        pointer-events: none;
+        text-align: center;
+        line-height: 1.2;
+      }
+      .action-btn svg.ring {
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        width: calc(100% + 8px);
+        height: calc(100% + 8px);
+        transform: rotate(-90deg);
+      }
+      .action-btn svg.ring circle {
+        fill: none;
+        stroke-width: 4;
+        stroke-linecap: round;
+      }
+      .action-btn svg.ring .track {
+        stroke: rgba(255, 255, 255, 0.15);
+      }
+      .action-btn svg.ring .progress {
+        stroke-dasharray: 283;
+        stroke-dashoffset: 283;
+        transition: stroke-dashoffset 0.1s linear;
+      }
+      .action-btn.grab .btn-bg {
+        background: radial-gradient(circle, #4caf50 0%, #2e7d32 100%);
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.5);
+      }
+      .action-btn.grab.active .btn-bg {
+        box-shadow: 0 4px 25px rgba(76, 175, 80, 0.9);
+      }
+      .action-btn.grab .progress {
+        stroke: #81c784;
+      }
+      .action-btn.drop .btn-bg {
+        background: radial-gradient(circle, #f44336 0%, #c62828 100%);
+        box-shadow: 0 4px 15px rgba(244, 67, 54, 0.5);
+      }
+      .action-btn.drop.active .btn-bg {
+        box-shadow: 0 4px 25px rgba(244, 67, 54, 0.9);
+        transform: scale(0.92);
+      }
+      .action-btn.drop .progress {
+        stroke: #ef9a9a;
+      }
+      .action-btn.anchor .btn-bg {
+        background: radial-gradient(circle, #2196f3 0%, #1565c0 100%);
+        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.5);
+      }
+      .action-btn.anchor.active .btn-bg {
+        box-shadow: 0 4px 25px rgba(33, 150, 243, 0.9);
+      }
+      .action-btn.anchor.active {
+        animation: pulseAnchor 0.8s ease-in-out infinite;
+      }
+      @keyframes pulseAnchor {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.08);
+        }
       }
 
       .joystick-wrapper {
@@ -178,6 +277,18 @@
         </div>
       </div>
 
+      <!-- Action Button -->
+      <div class="btn-zone">
+        <div id="action-btn" class="action-btn" style="display: none">
+          <div class="btn-bg"></div>
+          <svg class="ring" viewBox="0 0 96 96">
+            <circle class="track" cx="48" cy="48" r="45" />
+            <circle class="progress" cx="48" cy="48" r="45" />
+          </svg>
+          <div class="btn-label" id="btn-label"></div>
+        </div>
+      </div>
+
       <!-- Right Joystick (Limb 1) -->
       <div class="joystick-zone right-zone">
         <div class="limb-label">Right Tentacle</div>
@@ -212,6 +323,23 @@
           this.joystickRight = document.getElementById("joystick-right");
           this.playerName = document.getElementById("player-name");
           this.connectionStatus = document.getElementById("connection-status");
+          this.actionBtn = document.getElementById("action-btn");
+          this.btnLabel = document.getElementById("btn-label");
+          this.progressCircle = document.querySelector("#action-btn .progress");
+
+          // Button config per player slot
+          this.BUTTON_CONFIG = {
+            0: { action: "grab", label: "GRAB", css: "grab", holdTime: 3000 },
+            1: { action: "drop", label: "DROP", css: "drop", holdTime: 0 },
+            2: {
+              action: "anchor",
+              label: "ANCHOR",
+              css: "anchor",
+              holdTime: 0,
+            },
+          };
+          this.btnConfig = null;
+          this.btnHoldTimer = null;
 
           // Joystick config
           this.maxDistance = 45; // Max pixels stick can move from center
@@ -258,6 +386,74 @@
             .getControllerDeviceIds()
             .indexOf(this.airconsole.getDeviceId());
           this.playerName.textContent = `${nickname} (P${playerNumber + 1})`;
+          this.setupButton(playerNumber);
+        }
+
+        setupButton(slot) {
+          this.btnConfig = this.BUTTON_CONFIG[slot] || null;
+          if (!this.btnConfig) {
+            this.actionBtn.style.display = "none";
+            return;
+          }
+          this.actionBtn.className = "action-btn " + this.btnConfig.css;
+          this.btnLabel.textContent = this.btnConfig.label;
+          this.actionBtn.style.display = "flex";
+          this.bindButtonEvents();
+        }
+
+        bindButtonEvents() {
+          const el = this.actionBtn;
+          const start = (e) => {
+            e.preventDefault();
+            this.onBtnDown();
+          };
+          const end = (e) => {
+            e.preventDefault();
+            this.onBtnUp();
+          };
+          el.addEventListener("touchstart", start, { passive: false });
+          el.addEventListener("touchend", end, { passive: false });
+          el.addEventListener("touchcancel", end, { passive: false });
+          el.addEventListener("mousedown", start);
+          el.addEventListener("mouseup", end);
+          el.addEventListener("mouseleave", end);
+        }
+
+        onBtnDown() {
+          if (!this.btnConfig) return;
+          this.actionBtn.classList.add("active");
+          this.airconsole.message(AirConsole.SCREEN, {
+            type: "button",
+            action: this.btnConfig.action,
+            state: "pressed",
+          });
+          if (this.btnConfig.holdTime > 0) {
+            const total = this.btnConfig.holdTime;
+            const step = 50;
+            let elapsed = 0;
+            this.btnHoldTimer = setInterval(() => {
+              elapsed += step;
+              const pct = Math.min(elapsed / total, 1);
+              this.progressCircle.style.strokeDashoffset = 283 * (1 - pct);
+              if (pct >= 1) clearInterval(this.btnHoldTimer);
+            }, step);
+          }
+        }
+
+        onBtnUp() {
+          if (!this.btnConfig) return;
+          this.actionBtn.classList.remove("active");
+          this.airconsole.message(AirConsole.SCREEN, {
+            type: "button",
+            action: this.btnConfig.action,
+            state: "released",
+          });
+          if (this.btnHoldTimer) {
+            clearInterval(this.btnHoldTimer);
+            this.btnHoldTimer = null;
+          }
+          if (this.progressCircle)
+            this.progressCircle.style.strokeDashoffset = 283;
         }
 
         setupEventListeners() {

@@ -19,6 +19,13 @@ public class DirectControllerServer : MonoBehaviour
         public float lx, ly, rx, ry;
     }
 
+    private struct ButtonData
+    {
+        public int slot;
+        public string action;
+        public bool pressed;
+    }
+
     public struct ControlEvent
     {
         public enum Type { Connect, Disconnect }
@@ -27,6 +34,7 @@ public class DirectControllerServer : MonoBehaviour
     }
 
     private static readonly ConcurrentQueue<InputData> pendingInputs = new();
+    private static readonly ConcurrentQueue<ButtonData> pendingButtons = new();
     internal static readonly ConcurrentQueue<ControlEvent> pendingEvents = new();
 
     private static readonly object slotLock = new();
@@ -71,6 +79,11 @@ public class DirectControllerServer : MonoBehaviour
             handler.SetDirectInput(input.slot,
                 new Vector2(input.lx, input.ly),
                 new Vector2(input.rx, input.ry));
+        }
+
+        while (pendingButtons.TryDequeue(out ButtonData btn))
+        {
+            handler.SetButtonState(btn.slot, btn.action, btn.pressed);
         }
     }
 
@@ -128,6 +141,11 @@ public class DirectControllerServer : MonoBehaviour
         pendingInputs.Enqueue(new InputData { slot = slot, lx = lx, ly = ly, rx = rx, ry = ry });
     }
 
+    public static void EnqueueButton(int slot, string action, bool pressed)
+    {
+        pendingButtons.Enqueue(new ButtonData { slot = slot, action = action, pressed = pressed });
+    }
+
     static string GetLocalIP()
     {
         try
@@ -178,6 +196,13 @@ public class ControllerBehavior : WebSocketBehavior
                     (float)(data["left"]?["y"] ?? 0),
                     (float)(data["right"]?["x"] ?? 0),
                     (float)(data["right"]?["y"] ?? 0));
+            }
+            else if (data["type"]?.ToString() == "button")
+            {
+                string action = data["action"]?.ToString();
+                bool pressed = data["state"]?.ToString() == "pressed";
+                if (!string.IsNullOrEmpty(action))
+                    DirectControllerServer.EnqueueButton(slot, action, pressed);
             }
         }
         catch (System.Exception ex)

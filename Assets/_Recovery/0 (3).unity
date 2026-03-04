@@ -484,27 +484,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &356885735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 356885728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dec325993ee5841aa9475752907d5104, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Octo.Interaction.OctoGrabSystem
-  headBone: {fileID: 0}
-  locomotion: {fileID: 0}
-  grabRadius: 2
-  grabHoldTime: 3
-  grabPointHeight: 0.5
-  grabbableLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  showDebugGizmos: 1
 --- !u!4 &399428024 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8967896602470558140, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
@@ -852,8 +831,8 @@ GameObject:
   - component: {fileID: 559235474}
   - component: {fileID: 559235473}
   - component: {fileID: 559235472}
-  - component: {fileID: 559235477}
-  - component: {fileID: 559235476}
+  - component: {fileID: 559235471}
+  - component: {fileID: 559235470}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -861,6 +840,45 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &559235470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559235469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2b0abd8e10646bcaf18dcf94c78201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Octo.Interaction.ObjectGrabbable
+--- !u!54 &559235471
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559235469}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!135 &559235472
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -954,45 +972,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &559235476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 559235469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2b0abd8e10646bcaf18dcf94c78201, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Octo.Interaction.ObjectGrabbable
---- !u!54 &559235477
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 559235469}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!4 &576325574 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1555234555235780680, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
@@ -1231,6 +1210,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -7680063525232445015, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
   m_PrefabInstance: {fileID: 1602574144}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1255779482 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4622140496406357590, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
+  m_PrefabInstance: {fileID: 1602574144}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1258920017 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1685622327761311604, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
@@ -1367,6 +1351,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -2175788506076014646, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
   m_PrefabInstance: {fileID: 1602574144}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1457494074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255779482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec325993ee5841aa9475752907d5104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Octo.Interaction.OctoGrabSystem
+  headBone: {fileID: 1932045947}
+  locomotion: {fileID: 0}
+  grabRadius: 2
+  grabHoldTime: 3
+  grabPointHeight: 0.5
+  grabbableLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  showDebugGizmos: 1
 --- !u!4 &1509115958 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3725254245513586040, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
@@ -1455,6 +1460,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 138530419469080289, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 138530419469080289, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.000489
+      objectReference: {fileID: 0}
+    - target: {fileID: 138530419469080289, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.000012
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
       propertyPath: m_Name
       value: PfDWOctopusDave (merge)
@@ -1472,9 +1489,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 356885734}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4622140496406357590, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 356885735}
+      addedObject: {fileID: 1457494074}
     - targetCorrespondingSourceObject: {fileID: -811710449548818890, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1777555546}
@@ -1493,6 +1510,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -361781851846476739, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 723873782}
+    - targetCorrespondingSourceObject: {fileID: -3806866492647705642, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1932045948}
   m_SourcePrefab: {fileID: 100100000, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
 --- !u!4 &1614139495 stripped
 Transform:
@@ -1579,6 +1599,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6756330235498736698, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
   m_PrefabInstance: {fileID: 1602574144}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1848818518 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3806866492647705642, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
+  m_PrefabInstance: {fileID: 1602574144}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1914133900 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4164114539788932875, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
@@ -1619,6 +1644,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -6908370984179478202, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
   m_PrefabInstance: {fileID: 1602574144}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1932045948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848818518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec325993ee5841aa9475752907d5104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Octo.Interaction.OctoGrabSystem
+  headBone: {fileID: 0}
+  locomotion: {fileID: 0}
+  grabRadius: 2
+  grabHoldTime: 3
+  grabPointHeight: 0.5
+  grabbableLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  showDebugGizmos: 1
 --- !u!4 &1951159222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8798512593575125018, guid: 72731d2383b804778a76e949e344a1f3, type: 3}
