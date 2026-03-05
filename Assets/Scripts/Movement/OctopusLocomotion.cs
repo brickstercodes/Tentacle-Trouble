@@ -106,6 +106,15 @@ namespace Octo.Movement
             {
                 rb.freezeRotation = true;
                 rb.useGravity = true;
+                Debug.Log($"[OctopusLocomotion] Using Rigidbody (isKinematic={rb.isKinematic})");
+            }
+            else if (characterController != null)
+            {
+                Debug.Log("[OctopusLocomotion] Using CharacterController");
+            }
+            else
+            {
+                Debug.Log("[OctopusLocomotion] Using direct transform movement (no RB or CC)");
             }
 
             Debug.Log($"[OctopusLocomotion] Ready - moving: {moveTarget.name}");
@@ -139,6 +148,9 @@ namespace Octo.Movement
             for (int p = 0; p < MAX_PLAYERS; p++)
             {
                 playerInputs[p] = Vector2.zero;
+
+                // Skip P2 (player index 1) — their joysticks control the camera, not movement
+                if (p == 1) continue;
 
                 if (inputHandler != null)
                 {
@@ -210,8 +222,23 @@ namespace Octo.Movement
             // Movement effectiveness based on agreement
             float effectiveness = Mathf.Clamp01((agreementLevel - agreementThreshold) / (1f - agreementThreshold));
 
-            // Target velocity
-            Vector3 targetDirection = new Vector3(combinedInput.x, 0, combinedInput.y);
+            // Camera-relative movement: joystick up = camera forward, right = camera right
+            Camera cam = Camera.main;
+            Vector3 targetDirection;
+            if (cam != null)
+            {
+                Vector3 camForward = cam.transform.forward;
+                Vector3 camRight = cam.transform.right;
+                camForward.y = 0f;
+                camRight.y = 0f;
+                camForward.Normalize();
+                camRight.Normalize();
+                targetDirection = camForward * combinedInput.y + camRight * combinedInput.x;
+            }
+            else
+            {
+                targetDirection = new Vector3(combinedInput.x, 0f, combinedInput.y);
+            }
             Vector3 targetVelocity = targetDirection * maxSpeed * effectiveness;
 
             // Add struggle wobble when players disagree

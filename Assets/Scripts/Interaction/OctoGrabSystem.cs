@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using Octo.Input;
 using Octo.Movement;
 
@@ -29,10 +30,10 @@ namespace Octo.Interaction
         [SerializeField] private float grabRadius = 15f;
 
         [Tooltip("Seconds P1 must hold button before grab completes")]
-        [SerializeField] private float grabHoldTime = 3f;
+        [SerializeField] private float grabHoldTime = 1.5f;
 
         [Tooltip("Height above head bone for the grab point")]
-        [SerializeField] private float grabPointHeight = 0.5f;
+        [SerializeField] private float grabPointHeight = 21f;
 
         [Tooltip("Layer mask for grabbable objects")]
         [SerializeField] private LayerMask grabbableLayer = ~0;
@@ -47,6 +48,12 @@ namespace Octo.Interaction
         private bool wasDropPressed;       // for rising-edge detection
         private bool isAnchored;
         private bool grabFired;            // prevents TryGrab from firing every frame
+        private bool wasInteractPressed;   // rising-edge for chest interaction
+
+        /// <summary>Fired when an object is grabbed.</summary>
+        public event Action OnGrabbed;
+        /// <summary>Fired when an object is thrown/dropped.</summary>
+        public event Action OnThrown;
 
         private void Start()
         {
@@ -128,6 +135,9 @@ namespace Octo.Interaction
                 // Skip the octopus body itself
                 if (rb.transform.IsChildOf(transform)) continue;
 
+                // Skip kinematic / static objects (floors, walls, etc.)
+                if (rb.isKinematic) continue;
+
                 if (rb.GetComponent<ObjectGrabbable>() == null)
                 {
                     rb.gameObject.AddComponent<ObjectGrabbable>();
@@ -165,9 +175,17 @@ namespace Octo.Interaction
                 if (inputHandler == null) return;
             }
 
-            HandleGrab();   // P1
-            HandleDrop();   // P2
-            HandleAnchor(); // P3
+            // If the held object was disabled (e.g. coin entered chest), clear reference
+            if (currentlyHeld != null && !currentlyHeld.gameObject.activeInHierarchy)
+            {
+                Debug.Log($"[OctoGrabSystem] Held object '{currentlyHeld.name}' was deactivated, clearing.");
+                currentlyHeld = null;
+            }
+
+            HandleGrab();     // P1
+            HandleDrop();     // P1 (was P2)
+            HandleAnchor();   // P3 – anchor button
+            HandleInteract(); // P3 – interact button
         }
 
         // ─── P1: GRAB ────────────────────────────────────────────────────
@@ -230,6 +248,7 @@ namespace Octo.Interaction
                 closest.Grab(grabPoint);
                 currentlyHeld = closest;
                 Debug.Log($"[OctoGrabSystem] *** GRABBED {closest.name} (dist={closestDist:F2}) ***");
+                OnGrabbed?.Invoke();
             }
             else
             {
@@ -237,26 +256,29 @@ namespace Octo.Interaction
             }
         }
 
-        // ─── P2: DROP ────────────────────────────────────────────────────
+        // ─── P1: DROP (was P2) ───────────────────────────────────────────
         private void HandleDrop()
         {
-            bool dropPressed = inputHandler.IsButtonPressed(1, "drop");
+            bool dropPressed = inputHandler.IsButtonPressed(0, "drop");
 
             // Rising edge – drop on first press frame
             if (dropPressed && !wasDropPressed)
             {
                 if (currentlyHeld != null)
                 {
-                    Debug.Log($"[OctoGrabSystem] Dropped {currentlyHeld.name}");
-                    currentlyHeld.Drop();
+                    // Throw forward (octopus forward direction) with a slight upward arc
+                    Vector3 throwDir = transform.forward + Vector3.up * 0.3f;
+                    Debug.Log($"[OctoGrabSystem] Threw {currentlyHeld.name} dir={throwDir}");
+                    currentlyHeld.Throw(throwDir);
                     currentlyHeld = null;
+                    OnThrown?.Invoke();
                 }
             }
 
             wasDropPressed = dropPressed;
         }
 
-        // ─── P3: ANCHOR ─────────────────────────────────────────────────
+        // ─── P3: ANCHOR (hold) ──────────────────────────────────────
         private void HandleAnchor()
         {
             bool anchorPressed = inputHandler.IsButtonPressed(2, "anchor");
@@ -270,6 +292,50 @@ namespace Octo.Interaction
 
                 Debug.Log($"[OctoGrabSystem] Anchor {(isAnchored ? "ON" : "OFF")}");
             }
+        }
+
+        // ─── P3: INTERACT (tap) – open chest ────────────────────────
+        private void HandleInteract()
+        {
+            bool interactPressed = inputHandler.IsButtonPressed(2, "interact");
+
+            // Rising edge – open chest on first press frame
+            if (interactPressed && !wasInteractPressed)
+            {
+                var chest = FindNearestChest();
+                if (chest != null)
+                {
+                    chest.Open();
+                }
+                else
+                {
+                    Debug.Log("[OctoGrabSystem] No chest in range to interact with.");
+                }
+            }
+
+            wasInteractPressed = interactPressed;
+        }
+
+        /// <summary>
+        /// Finds the nearest TreasureChest within interaction range.
+        /// </summary>
+        private TreasureChest FindNearestChest()
+        {
+            Vector3 pos = headBone != null ? headBone.position : transform.position;
+            TreasureChest closest = null;
+            float closestDist = float.MaxValue;
+
+            foreach (var chest in FindObjectsByType<TreasureChest>(FindObjectsSortMode.None))
+            {
+                float d = Vector3.Distance(pos, chest.transform.position);
+                if (d <= chest.InteractionRadius && d < closestDist)
+                {
+                    closestDist = d;
+                    closest = chest;
+                }
+            }
+
+            return closest;
         }
 
         // ─── GIZMOS ─────────────────────────────────────────────────────

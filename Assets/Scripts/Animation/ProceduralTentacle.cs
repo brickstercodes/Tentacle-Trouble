@@ -16,6 +16,9 @@ namespace Octo.Animation
         [Tooltip("Global limb index (0-5). Player 1: 0,1 | Player 2: 2,3 | Player 3: 4,5")]
         [SerializeField] private int limbIndex = 0;
 
+        [Tooltip("If true, this limb ignores joystick input (used for camera-controlled player's arms)")]
+        [SerializeField] private bool inputDisabled = false;
+
         [Header("Movement Settings")]
         [Tooltip("How much each segment rotates (degrees) at full joystick")]
         [SerializeField] private float maxRotationPerSegment = 30f;
@@ -103,6 +106,9 @@ namespace Octo.Animation
 
         private void GetInput()
         {
+            // When input is disabled, use externally-set input (from gesture system)
+            if (inputDisabled) return;
+
             currentInput = Vector2.zero;
 
             // Try AirConsole input
@@ -226,5 +232,22 @@ namespace Octo.Animation
         /// Get the limb index
         /// </summary>
         public int GetLimbIndex() => limbIndex;
+
+        /// <summary>
+        /// Feed input externally (e.g., gesture system).
+        /// Only works when inputDisabled is true.
+        /// </summary>
+        public void SetExternalInput(Vector2 input)
+        {
+            if (inputDisabled)
+                currentInput = input;
+        }
+
+        /// <summary>Whether joystick input is disabled for this limb.</summary>
+        public bool InputDisabled
+        {
+            get => inputDisabled;
+            set => inputDisabled = value;
+        }
     }
 }

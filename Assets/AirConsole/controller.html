@@ -167,6 +167,31 @@
         }
       }
 
+      /* Interact (P3 second button) */
+      .action-btn.interact .btn-bg {
+        background: radial-gradient(circle, #ff9800 0%, #e65100 100%);
+        box-shadow: 0 4px 15px rgba(255, 152, 0, 0.5);
+      }
+      .action-btn.interact.active .btn-bg {
+        box-shadow: 0 4px 25px rgba(255, 152, 0, 0.9);
+        transform: scale(0.92);
+      }
+      .action-btn.interact .progress {
+        stroke: #ffcc80;
+      }
+
+      /* Two-button layout for P3 */
+      .btn-zone.dual {
+        gap: 12px;
+      }
+      .btn-zone.dual .action-btn {
+        width: 72px;
+        height: 72px;
+      }
+      .btn-zone.dual .btn-label {
+        font-size: 11px;
+      }
+
       .joystick-wrapper {
         width: 150px;
         height: 150px;
@@ -278,7 +303,7 @@
       </div>
 
       <!-- Action Button -->
-      <div class="btn-zone">
+      <div class="btn-zone" id="btn-zone">
         <div id="action-btn" class="action-btn" style="display: none">
           <div class="btn-bg"></div>
           <svg class="ring" viewBox="0 0 96 96">
@@ -286,6 +311,15 @@
             <circle class="progress" cx="48" cy="48" r="45" />
           </svg>
           <div class="btn-label" id="btn-label"></div>
+        </div>
+        <!-- Second button (hidden by default, shown for P3) -->
+        <div id="action-btn-2" class="action-btn" style="display: none">
+          <div class="btn-bg"></div>
+          <svg class="ring" viewBox="0 0 96 96">
+            <circle class="track" cx="48" cy="48" r="45" />
+            <circle class="progress" cx="48" cy="48" r="45" />
+          </svg>
+          <div class="btn-label" id="btn-label-2"></div>
         </div>
       </div>
 
@@ -326,16 +360,35 @@
           this.actionBtn = document.getElementById("action-btn");
           this.btnLabel = document.getElementById("btn-label");
           this.progressCircle = document.querySelector("#action-btn .progress");
+          this.actionBtn2 = document.getElementById("action-btn-2");
+          this.btnLabel2 = document.getElementById("btn-label-2");
+          this.btnZone = document.getElementById("btn-zone");
+          this.btn2Config = null;
 
           // Button config per player slot
           this.BUTTON_CONFIG = {
-            0: { action: "grab", label: "GRAB", css: "grab", holdTime: 3000 },
-            1: { action: "drop", label: "DROP", css: "drop", holdTime: 0 },
+            0: {
+              action: "grab",
+              label: "GRAB",
+              css: "grab",
+              holdTime: 3000,
+              second: {
+                action: "drop",
+                label: "DROP",
+                css: "drop",
+              },
+            },
+            // Slot 1 (P2) = camera only, no buttons
             2: {
               action: "anchor",
               label: "ANCHOR",
               css: "anchor",
               holdTime: 0,
+              second: {
+                action: "interact",
+                label: "OPEN\nCHEST",
+                css: "interact",
+              },
             },
           };
           this.btnConfig = null;
@@ -393,12 +446,26 @@
           this.btnConfig = this.BUTTON_CONFIG[slot] || null;
           if (!this.btnConfig) {
             this.actionBtn.style.display = "none";
+            this.actionBtn2.style.display = "none";
             return;
           }
           this.actionBtn.className = "action-btn " + this.btnConfig.css;
           this.btnLabel.textContent = this.btnConfig.label;
           this.actionBtn.style.display = "flex";
           this.bindButtonEvents();
+
+          // Second button (P3 only)
+          if (this.btnConfig.second) {
+            this.btn2Config = this.btnConfig.second;
+            this.actionBtn2.className = "action-btn " + this.btn2Config.css;
+            this.btnLabel2.textContent = this.btn2Config.label;
+            this.actionBtn2.style.display = "flex";
+            this.btnZone.classList.add("dual");
+            this.bindButton2Events();
+          } else {
+            this.actionBtn2.style.display = "none";
+            this.btnZone.classList.remove("dual");
+          }
         }
 
         bindButtonEvents() {
@@ -417,6 +484,44 @@
           el.addEventListener("mousedown", start);
           el.addEventListener("mouseup", end);
           el.addEventListener("mouseleave", end);
+        }
+
+        bindButton2Events() {
+          const el = this.actionBtn2;
+          const start = (e) => {
+            e.preventDefault();
+            this.onBtn2Down();
+          };
+          const end = (e) => {
+            e.preventDefault();
+            this.onBtn2Up();
+          };
+          el.addEventListener("touchstart", start, { passive: false });
+          el.addEventListener("touchend", end, { passive: false });
+          el.addEventListener("touchcancel", end, { passive: false });
+          el.addEventListener("mousedown", start);
+          el.addEventListener("mouseup", end);
+          el.addEventListener("mouseleave", end);
+        }
+
+        onBtn2Down() {
+          if (!this.btn2Config) return;
+          this.actionBtn2.classList.add("active");
+          this.airconsole.message(AirConsole.SCREEN, {
+            type: "button",
+            action: this.btn2Config.action,
+            state: "pressed",
+          });
+        }
+
+        onBtn2Up() {
+          if (!this.btn2Config) return;
+          this.actionBtn2.classList.remove("active");
+          this.airconsole.message(AirConsole.SCREEN, {
+            type: "button",
+            action: this.btn2Config.action,
+            state: "released",
+          });
         }
 
         onBtnDown() {

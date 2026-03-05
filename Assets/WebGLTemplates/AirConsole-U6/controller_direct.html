@@ -216,6 +216,31 @@
           transform: scale(1.08);
         }
       }
+
+      /* Interact (P3 second button) */
+      .action-btn.interact .btn-bg {
+        background: radial-gradient(circle, #ff9800 0%, #e65100 100%);
+        box-shadow: 0 4px 15px rgba(255, 152, 0, 0.5);
+      }
+      .action-btn.interact.active .btn-bg {
+        box-shadow: 0 4px 25px rgba(255, 152, 0, 0.9);
+        transform: scale(0.92);
+      }
+      .action-btn.interact .progress {
+        stroke: #ffcc80;
+      }
+
+      /* Two-button layout for P3 */
+      .btn-zone.dual {
+        gap: 12px;
+      }
+      .btn-zone.dual .action-btn {
+        width: 72px;
+        height: 72px;
+      }
+      .btn-zone.dual .btn-label {
+        font-size: 11px;
+      }
     </style>
   </head>
   <body>
@@ -230,7 +255,7 @@
           <div class="stick" id="stick-left"></div>
         </div>
       </div>
-      <div class="btn-zone">
+      <div class="btn-zone" id="btn-zone">
         <div class="action-btn" id="action-btn">
           <div class="btn-bg"></div>
           <svg class="ring" viewBox="0 0 98 98">
@@ -238,6 +263,21 @@
             <circle class="progress" id="btn-progress" cx="49" cy="49" r="45" />
           </svg>
           <div class="btn-label" id="btn-label">...</div>
+        </div>
+        <!-- Second button (hidden by default, shown for P3) -->
+        <div class="action-btn" id="action-btn-2" style="display: none">
+          <div class="btn-bg"></div>
+          <svg class="ring" viewBox="0 0 98 98">
+            <circle class="track" cx="49" cy="49" r="45" />
+            <circle
+              class="progress"
+              id="btn-progress-2"
+              cx="49"
+              cy="49"
+              r="45"
+            />
+          </svg>
+          <div class="btn-label" id="btn-label-2">...</div>
         </div>
       </div>
       <div class="zone right">
@@ -262,6 +302,10 @@
       var grabRingTimer = null;
       var GRAB_DURATION = 3000; // 3 seconds in ms
 
+      // Second button state (for P3)
+      var button2Action = null;
+      var button2Pressed = false;
+
       var dot = document.getElementById("dot");
       var statusText = document.getElementById("status-text");
       var stickL = document.getElementById("stick-left");
@@ -271,23 +315,57 @@
       var actionBtn = document.getElementById("action-btn");
       var btnLabel = document.getElementById("btn-label");
       var btnProgress = document.getElementById("btn-progress");
+      var actionBtn2 = document.getElementById("action-btn-2");
+      var btnLabel2 = document.getElementById("btn-label-2");
+      var btnZone = document.getElementById("btn-zone");
 
       // Per-player button config
       var BUTTON_CONFIG = {
-        0: { action: "grab", label: "GRAB", cssClass: "grab" },
-        1: { action: "drop", label: "DROP", cssClass: "drop" },
-        2: { action: "anchor", label: "ANCHOR", cssClass: "anchor" },
+        0: {
+          action: "grab",
+          label: "GRAB",
+          cssClass: "grab",
+          second: {
+            action: "drop",
+            label: "DROP",
+            cssClass: "drop",
+          },
+        },
+        // Slot 1 (P2) = camera only, no buttons
+        2: {
+          action: "anchor",
+          label: "ANCHOR",
+          cssClass: "anchor",
+          second: {
+            action: "interact",
+            label: "OPEN\nCHEST",
+            cssClass: "interact",
+          },
+        },
       };
 
       function configureButton(slot) {
         var cfg = BUTTON_CONFIG[slot];
         if (!cfg) {
           actionBtn.style.display = "none";
+          actionBtn2.style.display = "none";
           return;
         }
         buttonAction = cfg.action;
         btnLabel.textContent = cfg.label;
         actionBtn.className = "action-btn " + cfg.cssClass;
+
+        // Second button (P3 only)
+        if (cfg.second) {
+          button2Action = cfg.second.action;
+          btnLabel2.textContent = cfg.second.label;
+          actionBtn2.className = "action-btn " + cfg.second.cssClass;
+          actionBtn2.style.display = "flex";
+          btnZone.classList.add("dual");
+        } else {
+          actionBtn2.style.display = "none";
+          btnZone.classList.remove("dual");
+        }
       }
 
       function sendButton(state) {
@@ -346,6 +424,39 @@
       actionBtn.addEventListener("touchcancel", onBtnUp);
       actionBtn.addEventListener("mousedown", onBtnDown);
       actionBtn.addEventListener("mouseup", onBtnUp);
+
+      // Second button events
+      function onBtn2Down(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (button2Pressed) return;
+        button2Pressed = true;
+        actionBtn2.classList.add("active");
+        sendButton2("pressed");
+      }
+      function onBtn2Up(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!button2Pressed) return;
+        button2Pressed = false;
+        actionBtn2.classList.remove("active");
+        sendButton2("released");
+      }
+      function sendButton2(state) {
+        if (!ws || ws.readyState !== 1 || !button2Action) return;
+        ws.send(
+          JSON.stringify({
+            type: "button",
+            action: button2Action,
+            state: state,
+          }),
+        );
+      }
+      actionBtn2.addEventListener("touchstart", onBtn2Down);
+      actionBtn2.addEventListener("touchend", onBtn2Up);
+      actionBtn2.addEventListener("touchcancel", onBtn2Up);
+      actionBtn2.addEventListener("mousedown", onBtn2Down);
+      actionBtn2.addEventListener("mouseup", onBtn2Up);
 
       function connect() {
         var host = location.hostname;

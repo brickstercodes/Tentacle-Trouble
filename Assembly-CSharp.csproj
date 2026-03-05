@@ -55,6 +55,9 @@
     <Compile Include="Assets/Scripts/Animation/AnimationPhysicsBlender.cs" />
     <Compile Include="Assets/AirConsole/examples/translations/TranslationExampleLogic.cs" />
     <Compile Include="Assets/Scripts/Physics/LimbPhysicsController.cs" />
+    <Compile Include="Assets/Open.cs" />
+    <Compile Include="Assets/Scripts/Animation/TentacleGesture.cs" />
+    <Compile Include="Assets/Scripts/Movement/OctopusCameraController.cs" />
     <Compile Include="Assets/AirConsole/scripts/AirConsole.cs" />
     <Compile Include="Assets/AirConsole/examples/platformer/PlatformerExampleLogic.cs" />
     <Compile Include="Assets/Scripts/Movement/OctopusLocomotion.cs" />
@@ -65,6 +68,7 @@
     <Compile Include="Assets/Scripts/Input/DirectControllerServer.cs" />
     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
     <Compile Include="Assets/Scripts/Input/PlayerInputState.cs" />
+    <Compile Include="Assets/Scripts/Interaction/TreasureChest.cs" />
     <Compile Include="Assets/AirConsole/examples/platformer/Player_Platformer.cs" />
     <Compile Include="Assets/Scripts/Animation/ProceduralTentacle.cs" />
     <Compile Include="Assets/AirConsole/examples/basic/ExampleBasicLogic.cs" />
@@ -78,7 +82,7 @@
     <None Include="Assets/AirConsole/Third-Party Notices.txt" />
     <None Include="Assets/AirConsole/plugins/Newtonsoft.Json.dll" />
     <None Include="Assets/AirConsole/README.txt" />
-    <None Include="Assets/DavePixel/ReadMe!.rtf.txt" />
+    <None Include="Assets/Coin/ReadMe!.rtf.txt" />
     <None Include="Assets/AirConsole/Royaltyfreemusicclips.com Licence.txt" />
   </ItemGroup>
   <ItemGroup>

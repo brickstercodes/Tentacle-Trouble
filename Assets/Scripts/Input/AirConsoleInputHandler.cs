@@ -419,7 +419,9 @@ namespace Octo.Input
             int playerNumber = globalLimbIndex / limbsPerPlayer;
             int localLimbIndex = globalLimbIndex % limbsPerPlayer;
 
-            return playerStates[playerNumber].GetLimbInput(localLimbIndex).joystickInput;
+            Vector2 raw = playerStates[playerNumber].GetLimbInput(localLimbIndex).joystickInput;
+
+            return raw;
         }
 
         /// <summary>
