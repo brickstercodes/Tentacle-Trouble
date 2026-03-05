@@ -78,6 +78,7 @@
     <None Include="Assets/AirConsole/Third-Party Notices.txt" />
     <None Include="Assets/AirConsole/plugins/Newtonsoft.Json.dll" />
     <None Include="Assets/AirConsole/README.txt" />
+    <None Include="Assets/DavePixel/ReadMe!.rtf.txt" />
     <None Include="Assets/AirConsole/Royaltyfreemusicclips.com Licence.txt" />
   </ItemGroup>
   <ItemGroup>
