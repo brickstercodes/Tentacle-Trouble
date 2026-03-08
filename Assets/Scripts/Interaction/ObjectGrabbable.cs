@@ -44,6 +44,11 @@ namespace Octo.Interaction
                 StopCoroutine(throwRoutine);
                 throwRoutine = null;
             }
+            if (grabLerpRoutine != null)
+            {
+                StopCoroutine(grabLerpRoutine);
+                grabLerpRoutine = null;
+            }
 
             objectGrabPointTransform = grabPoint;
             objectRigidbody.useGravity = false;
@@ -68,6 +73,7 @@ namespace Octo.Interaction
 
         public void Drop()
         {
+            if (grabLerpRoutine != null) { StopCoroutine(grabLerpRoutine); grabLerpRoutine = null; }
             transform.SetParent(originalParent, true);
             objectGrabPointTransform = null;
             objectRigidbody.isKinematic = false;
@@ -80,6 +86,7 @@ namespace Octo.Interaction
         /// </summary>
         public void Throw(Vector3 direction)
         {
+            if (grabLerpRoutine != null) { StopCoroutine(grabLerpRoutine); grabLerpRoutine = null; }
             transform.SetParent(originalParent, true);
             objectGrabPointTransform = null;
             RestoreCollisions();
