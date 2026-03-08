@@ -284,7 +284,7 @@ namespace Octo.Interaction
                     Vector3 fwd = transform.forward;
                     fwd.y = 0f;
                     fwd.Normalize();
-                    Vector3 throwDir = fwd + Vector3.up * 0.3f;
+                    Vector3 throwDir = fwd + Vector3.up * 0.7f;
                     Debug.Log($"[OctoGrabSystem] Threw {currentlyHeld.name} dir={throwDir}");
                     currentlyHeld.Throw(throwDir);
                     currentlyHeld = null;

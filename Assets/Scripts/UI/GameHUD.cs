@@ -99,7 +99,7 @@ namespace Octo.UI
                 : $"ALL COINS!  {mins:00}:{secs:00.00}";
             bannerText.gameObject.SetActive(true);
         }
-
+//  fix
         private void BuildCanvas()
         {
             var canvasGo = new GameObject("GameHUD_Canvas");
