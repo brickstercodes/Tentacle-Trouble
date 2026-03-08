@@ -145,9 +145,9 @@ namespace Octo.Movement
                 // to get the right world-space footprint on a 90x scaled prefab.
                 Vector3 ls2 = moveTarget.lossyScale;
                 float sxz2 = Mathf.Max(Mathf.Abs(ls2.x), Mathf.Abs(ls2.z));
-                float sy2  = Mathf.Abs(ls2.y);
+                float sy2 = Mathf.Abs(ls2.y);
                 if (sxz2 < 0.0001f) sxz2 = 1f;
-                if (sy2  < 0.0001f) sy2  = 1f;
+                if (sy2 < 0.0001f) sy2 = 1f;
 
                 var smr2 = moveTarget.GetComponentInChildren<SkinnedMeshRenderer>();
                 if (smr2 != null)
@@ -155,21 +155,21 @@ namespace Octo.Movement
                     Bounds b2 = smr2.bounds;
                     float r2 = Mathf.Max(b2.extents.x, b2.extents.z) * 0.5f / sxz2;
                     float h2 = b2.size.y / sy2;
-                    characterController.radius     = r2;
-                    characterController.height     = h2;
+                    characterController.radius = r2;
+                    characterController.height = h2;
                     Vector3 cc2center = moveTarget.InverseTransformPoint(b2.center);
                     cc2center.y += groundOffset;
-                    characterController.center     = cc2center;
+                    characterController.center = cc2center;
                     characterController.stepOffset = 0.3f / sy2;   // ~0.3 world-unit step
-                    characterController.skinWidth  = r2 * 0.1f;
+                    characterController.skinWidth = r2 * 0.1f;
                     Debug.Log($"[OctopusLocomotion] Auto-added & sized CharacterController (lossyScale={ls2}): r={r2:F4} h={h2:F4}");
                 }
                 else
                 {
-                    characterController.radius     = 0.5f  / sxz2;
-                    characterController.height     = 1.5f  / sy2;
-                    characterController.stepOffset = 0.3f  / sy2;
-                    characterController.skinWidth  = (0.5f / sxz2) * 0.1f;
+                    characterController.radius = 0.5f / sxz2;
+                    characterController.height = 1.5f / sy2;
+                    characterController.stepOffset = 0.3f / sy2;
+                    characterController.skinWidth = (0.5f / sxz2) * 0.1f;
                     Debug.Log($"[OctopusLocomotion] Auto-added CharacterController with fallback size (lossyScale={ls2})");
                 }
             }
@@ -199,9 +199,9 @@ namespace Octo.Movement
                 // the transform is scaled (e.g. 90x on the prefab root).
                 Vector3 ls = moveTarget.lossyScale;
                 float scaleXZ = Mathf.Max(Mathf.Abs(ls.x), Mathf.Abs(ls.z));
-                float scaleY  = Mathf.Abs(ls.y);
+                float scaleY = Mathf.Abs(ls.y);
                 if (scaleXZ < 0.0001f) scaleXZ = 1f;
-                if (scaleY  < 0.0001f) scaleY  = 1f;
+                if (scaleY < 0.0001f) scaleY = 1f;
 
                 var smr = moveTarget.GetComponentInChildren<SkinnedMeshRenderer>();
                 if (smr != null)
