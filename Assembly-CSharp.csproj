@@ -51,15 +51,19 @@
     <Compile Include="Assets/AirConsole/scripts/Settings.cs" />
     <Compile Include="Assets/Scripts/Input/AirConsoleInputHandler.cs" />
     <Compile Include="Assets/Scripts/Animation/HeadWobble.cs" />
+    <Compile Include="Assets/Scripts/Interaction/CoinDepositVFX.cs" />
     <Compile Include="Assets/Scripts/Interaction/OctoGrabSystem.cs" />
     <Compile Include="Assets/Scripts/Animation/AnimationPhysicsBlender.cs" />
     <Compile Include="Assets/AirConsole/examples/translations/TranslationExampleLogic.cs" />
+    <Compile Include="Assets/Scripts/Interaction/GrabCenter.cs" />
     <Compile Include="Assets/Scripts/Physics/LimbPhysicsController.cs" />
     <Compile Include="Assets/Open.cs" />
     <Compile Include="Assets/Scripts/Animation/TentacleGesture.cs" />
     <Compile Include="Assets/Scripts/Movement/OctopusCameraController.cs" />
+    <Compile Include="Assets/Scripts/UI/GameHUD.cs" />
     <Compile Include="Assets/AirConsole/scripts/AirConsole.cs" />
     <Compile Include="Assets/AirConsole/examples/platformer/PlatformerExampleLogic.cs" />
+    <Compile Include="Assets/Scripts/Physics/KinematicFollower.cs" />
     <Compile Include="Assets/Scripts/Movement/OctopusLocomotion.cs" />
     <Compile Include="Assets/AirConsole/examples/swipe/Player_Swipe.cs" />
     <Compile Include="Assets/AirConsole/extras/HighScoreHelper.cs" />
@@ -72,8 +76,10 @@
     <Compile Include="Assets/AirConsole/examples/platformer/Player_Platformer.cs" />
     <Compile Include="Assets/Scripts/Animation/ProceduralTentacle.cs" />
     <Compile Include="Assets/AirConsole/examples/basic/ExampleBasicLogic.cs" />
+    <Compile Include="Assets/IgniteCoders/Simple Water Shader/Resources/WaterReflection.cs" />
     <Compile Include="Assets/AirConsole/examples/game-states/GameStatesExampleLogic.cs" />
     <Compile Include="Assets/AirConsole/scripts/WebsocketListener.cs" />
+    <Compile Include="Assets/Scripts/GameManager.cs" />
     <Compile Include="Assets/Scripts/Physics/TentacleController.cs" />
     <Compile Include="Assets/AirConsole/scripts/DebugLevel.cs" />
   </ItemGroup>
@@ -1258,6 +1264,10 @@
       <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.ProBuilder.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.ProBuilder.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
       <Private>False</Private>
@@ -1280,6 +1290,10 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.GPUDriven.Runtime">
       <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.GPUDriven.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AddOns.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
@@ -1322,8 +1336,16 @@
       <HintPath>Library/ScriptAssemblies/Unity.Multiplayer.Center.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
+      <HintPath>Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
       <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.ProBuilder">
+      <HintPath>Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
@@ -1352,6 +1374,10 @@
     </Reference>
     <Reference Include="Unity.InputSystem">
       <HintPath>Library/ScriptAssemblies/Unity.InputSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Settings.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.Settings.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEditor.UI">

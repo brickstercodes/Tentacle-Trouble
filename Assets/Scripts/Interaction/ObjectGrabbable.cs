@@ -17,6 +17,7 @@ namespace Octo.Interaction
 
         private Rigidbody objectRigidbody;
         private Transform objectGrabPointTransform;
+        private Collider[] ignoredColliders;
 
         public bool IsGrabbed => objectGrabPointTransform != null;
 
@@ -25,16 +26,27 @@ namespace Octo.Interaction
             objectRigidbody = GetComponent<Rigidbody>();
         }
 
-        public void Grab(Transform grabPoint)
+        public void Grab(Transform grabPoint, Collider[] collidersToIgnore = null)
         {
             objectGrabPointTransform = grabPoint;
             objectRigidbody.useGravity = false;
+
+            // Prevent the octopus's own colliders from pushing the grabbed object
+            ignoredColliders = collidersToIgnore;
+            if (ignoredColliders != null)
+            {
+                var ownColliders = GetComponents<Collider>();
+                foreach (var oc in ownColliders)
+                    foreach (var ic in ignoredColliders)
+                        UnityEngine.Physics.IgnoreCollision(oc, ic, true);
+            }
         }
 
         public void Drop()
         {
             objectGrabPointTransform = null;
             objectRigidbody.useGravity = true;
+            RestoreCollisions();
         }
 
         /// <summary>
@@ -44,7 +56,18 @@ namespace Octo.Interaction
         {
             objectGrabPointTransform = null;
             objectRigidbody.useGravity = true;
+            RestoreCollisions();
             objectRigidbody.AddForce(direction.normalized * throwForce, ForceMode.Impulse);
+        }
+
+        private void RestoreCollisions()
+        {
+            if (ignoredColliders == null) return;
+            var ownColliders = GetComponents<Collider>();
+            foreach (var oc in ownColliders)
+                foreach (var ic in ignoredColliders)
+                    UnityEngine.Physics.IgnoreCollision(oc, ic, false);
+            ignoredColliders = null;
         }
 
         private void FixedUpdate()

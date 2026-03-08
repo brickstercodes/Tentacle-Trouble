@@ -23,6 +23,7 @@ namespace Octo.Interaction
         private bool isOpen;
         private float closeTimer;
         private int coinsInside;
+        private CoinDepositVFX depositVFX;
 
         // Animator parameter hash
         private static readonly int OpenTrigger = Animator.StringToHash("Open");
@@ -31,16 +32,21 @@ namespace Octo.Interaction
         /// <summary>Number of coins currently inside the chest.</summary>
         public int CoinsInside => coinsInside;
 
+        private ChestTriggerZone coinZone;
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
+
+            var vfxGo = new GameObject("DepositVFX");
+            vfxGo.transform.SetParent(transform, false);
+            depositVFX = vfxGo.AddComponent<CoinDepositVFX>();
         }
 
         private void Start()
         {
-            // Auto-create trigger zone if none exists
-            var existing = GetComponentInChildren<ChestTriggerZone>();
-            if (existing == null)
+            coinZone = GetComponentInChildren<ChestTriggerZone>();
+            if (coinZone == null)
             {
                 var zone = new GameObject("CoinZone");
                 zone.transform.SetParent(transform, false);
@@ -48,9 +54,13 @@ namespace Octo.Interaction
                 var box = zone.AddComponent<BoxCollider>();
                 box.isTrigger = true;
                 box.size = new Vector3(0.8f, 0.6f, 0.5f);
-                zone.AddComponent<ChestTriggerZone>().Init(this);
+                coinZone = zone.AddComponent<ChestTriggerZone>();
+                coinZone.Init(this);
                 Debug.Log("[TreasureChest] Auto-created CoinZone trigger.");
             }
+
+            // Start with coin zone disabled — only accept coins when open
+            SetCoinZoneActive(false);
         }
 
         private void Update()
@@ -74,6 +84,7 @@ namespace Octo.Interaction
             isOpen = true;
             closeTimer = autoCloseDelay;
             animator.SetTrigger(OpenTrigger);
+            SetCoinZoneActive(true);
             Debug.Log("[TreasureChest] Opened!");
         }
 
@@ -85,7 +96,17 @@ namespace Octo.Interaction
             if (!isOpen) return;
             isOpen = false;
             animator.SetTrigger(CloseTrigger);
+            SetCoinZoneActive(false);
             Debug.Log("[TreasureChest] Closed!");
+        }
+
+        private void SetCoinZoneActive(bool active)
+        {
+            if (coinZone != null)
+            {
+                var col = coinZone.GetComponent<Collider>();
+                if (col != null) col.enabled = active;
+            }
         }
 
         /// <summary>Called by ChestTriggerZone when a coin enters.</summary>
@@ -93,6 +114,13 @@ namespace Octo.Interaction
         {
             coinsInside++;
             Debug.Log($"[TreasureChest] Coin IN: {coin.name} — total: {coinsInside}");
+
+            if (depositVFX != null)
+                depositVFX.Play(coin.transform.position);
+
+            var gm = Octo.GameManager.Instance;
+            if (gm != null)
+                gm.AddCoinScore();
         }
 
         /// <summary>Called by ChestTriggerZone when a coin exits.</summary>

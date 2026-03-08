@@ -42,6 +42,10 @@ namespace Octo.Movement
         [SerializeField] private LayerMask groundLayer = ~0;
         [Tooltip("How far down to check for ground")]
         [SerializeField] private float groundCheckDistance = 0.5f;
+        [Tooltip("Shifts the CharacterController capsule up (+) or down (\u2212) relative to the auto-calculated mesh center. " +
+                 "Decrease (negative) to sink the octopus closer to the ground. In LOCAL space \u2014 " +
+                 "with a 90x prefab, 0.01 \u2248 0.9 world units.")]
+        [SerializeField] private float groundOffset = 0f;
 
         [Header("Debug")]
         [SerializeField] private bool showDebugInfo = true;
@@ -60,6 +64,12 @@ namespace Octo.Movement
 
         // Anchor: when true, octopus cannot move (P3 ability)
         private bool isAnchored;
+
+        // Accumulated vertical velocity for CharacterController gravity
+        private float verticalVelocity;
+
+        /// <summary>The transform being moved by locomotion (authoritative body position).</summary>
+        public Transform MoveTarget => moveTarget;
 
         // Components
         private Rigidbody rb;
@@ -93,6 +103,26 @@ namespace Octo.Movement
                 }
             }
 
+            // Guard against a skeleton bone being assigned manually in the Inspector.
+            // Animated bones must NOT have a dynamic Rigidbody — the Animator and physics
+            // would fight each other every frame, causing the bone to fall through terrain.
+            // If the assigned target has no physics component of its own AND is not the scene
+            // root, walk up to the top-level object so physics lives on the prefab shell.
+            if (moveTarget != null && moveTarget.parent != null)
+            {
+                bool hasPhysics = moveTarget.GetComponent<Rigidbody>() != null
+                               || moveTarget.GetComponent<CharacterController>() != null;
+                if (!hasPhysics)
+                {
+                    Transform root = moveTarget;
+                    while (root.parent != null)
+                        root = root.parent;
+                    Debug.LogWarning($"[OctopusLocomotion] '{moveTarget.name}' is not a scene root and has no physics component " +
+                                     $"— it may be an animated bone. Correcting to scene root '{root.name}' to avoid Animator/Rigidbody conflicts.");
+                    moveTarget = root;
+                }
+            }
+
             if (moveTarget == null)
             {
                 Debug.LogError("[OctopusLocomotion] No move target! Assign the octopus top-level object.");
@@ -102,19 +132,93 @@ namespace Octo.Movement
             rb = moveTarget.GetComponent<Rigidbody>();
             characterController = moveTarget.GetComponent<CharacterController>();
 
+            if (rb == null && characterController == null)
+            {
+                // Prefer CharacterController over Rigidbody for player character movement.
+                // A non-kinematic Rigidbody fights direct transform rotation (used by the
+                // camera controller for P2's right-stick octopus rotation), causing stutter.
+                // CharacterController handles collision natively without joining the physics
+                // simulation, so the camera can freely rotate the root transform.
+                characterController = moveTarget.gameObject.AddComponent<CharacterController>();
+
+                // Size the CC properly — values are LOCAL space, so divide by lossyScale
+                // to get the right world-space footprint on a 90x scaled prefab.
+                Vector3 ls2 = moveTarget.lossyScale;
+                float sxz2 = Mathf.Max(Mathf.Abs(ls2.x), Mathf.Abs(ls2.z));
+                float sy2  = Mathf.Abs(ls2.y);
+                if (sxz2 < 0.0001f) sxz2 = 1f;
+                if (sy2  < 0.0001f) sy2  = 1f;
+
+                var smr2 = moveTarget.GetComponentInChildren<SkinnedMeshRenderer>();
+                if (smr2 != null)
+                {
+                    Bounds b2 = smr2.bounds;
+                    float r2 = Mathf.Max(b2.extents.x, b2.extents.z) * 0.5f / sxz2;
+                    float h2 = b2.size.y / sy2;
+                    characterController.radius     = r2;
+                    characterController.height     = h2;
+                    Vector3 cc2center = moveTarget.InverseTransformPoint(b2.center);
+                    cc2center.y += groundOffset;
+                    characterController.center     = cc2center;
+                    characterController.stepOffset = 0.3f / sy2;   // ~0.3 world-unit step
+                    characterController.skinWidth  = r2 * 0.1f;
+                    Debug.Log($"[OctopusLocomotion] Auto-added & sized CharacterController (lossyScale={ls2}): r={r2:F4} h={h2:F4}");
+                }
+                else
+                {
+                    characterController.radius     = 0.5f  / sxz2;
+                    characterController.height     = 1.5f  / sy2;
+                    characterController.stepOffset = 0.3f  / sy2;
+                    characterController.skinWidth  = (0.5f / sxz2) * 0.1f;
+                    Debug.Log($"[OctopusLocomotion] Auto-added CharacterController with fallback size (lossyScale={ls2})");
+                }
+            }
+
             if (rb != null)
             {
-                rb.freezeRotation = true;
+                // If a Rigidbody was added manually: allow Y rotation so the camera
+                // controller can freely rotate the octopus (right stick, P2).
+                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
                 rb.useGravity = true;
-                Debug.Log($"[OctopusLocomotion] Using Rigidbody (isKinematic={rb.isKinematic})");
+                rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                rb.interpolation = RigidbodyInterpolation.Interpolate;
+                if (rb.isKinematic) rb.isKinematic = false;
+                Debug.Log("[OctopusLocomotion] Rigidbody configured (Y rotation unfrozen for camera control).");
             }
-            else if (characterController != null)
+            if (characterController != null)
             {
-                Debug.Log("[OctopusLocomotion] Using CharacterController");
+                Debug.Log($"[OctopusLocomotion] CharacterController ready on '{moveTarget.name}'.");
             }
-            else
+
+            // Auto-size the CapsuleCollider on moveTarget if it exists and is tiny
+            var cap = moveTarget.GetComponent<CapsuleCollider>();
+            if (cap != null)
             {
-                Debug.Log("[OctopusLocomotion] Using direct transform movement (no RB or CC)");
+                // smr.bounds is in WORLD space; collider values are in LOCAL space.
+                // Divide by lossyScale so the world-space size is correct even when
+                // the transform is scaled (e.g. 90x on the prefab root).
+                Vector3 ls = moveTarget.lossyScale;
+                float scaleXZ = Mathf.Max(Mathf.Abs(ls.x), Mathf.Abs(ls.z));
+                float scaleY  = Mathf.Abs(ls.y);
+                if (scaleXZ < 0.0001f) scaleXZ = 1f;
+                if (scaleY  < 0.0001f) scaleY  = 1f;
+
+                var smr = moveTarget.GetComponentInChildren<SkinnedMeshRenderer>();
+                if (smr != null)
+                {
+                    Bounds b = smr.bounds;
+                    cap.radius = Mathf.Max(b.extents.x, b.extents.z) * 0.5f / scaleXZ;
+                    cap.height = b.size.y / scaleY;
+                    cap.center = moveTarget.InverseTransformPoint(b.center); // already handles scale
+                    Debug.Log($"[OctopusLocomotion] Auto-sized CapsuleCollider (lossyScale={ls}): r={cap.radius:F4} h={cap.height:F4}");
+                }
+                else
+                {
+                    // Fallback: 0.5 m radius, 1.5 m height in world space
+                    cap.radius = 0.5f / scaleXZ;
+                    cap.height = 1.5f / scaleY;
+                    Debug.Log($"[OctopusLocomotion] CapsuleCollider default world size (lossyScale={ls}): r={cap.radius:F4} h={cap.height:F4}");
+                }
             }
 
             Debug.Log($"[OctopusLocomotion] Ready - moving: {moveTarget.name}");
@@ -123,16 +227,20 @@ namespace Octo.Movement
         private void Update()
         {
             if (moveTarget == null) return;
-            if (isAnchored) return; // P3 anchor freezes all movement
+            if (isAnchored) return;
 
-            // Get inputs from both "players"
+            // Gather inputs and compute velocity every frame for responsiveness
             GetInputs();
+            currentVelocity = CalculateMovement();
+        }
 
-            // Calculate combined movement
-            Vector3 movement = CalculateMovement();
+        private void FixedUpdate()
+        {
+            if (moveTarget == null) return;
+            if (isAnchored) return;
 
-            // Apply movement
-            ApplyMovement(movement);
+            // Apply movement in FixedUpdate so Rigidbody collision detection works correctly
+            ApplyMovement(currentVelocity);
         }
 
         private void GetInputs()
@@ -264,23 +372,29 @@ namespace Octo.Movement
 
             if (characterController != null)
             {
-                // Use CharacterController
-                characterController.Move(movement * Time.deltaTime + Vector3.down * 9.81f * Time.deltaTime);
+                // Accumulate gravity; reset when grounded so it doesn't stack up
+                if (characterController.isGrounded)
+                    verticalVelocity = -2f; // small constant keeps CC pressed to ground
+                else
+                    verticalVelocity += UnityEngine.Physics.gravity.y * Time.deltaTime;
+
+                Vector3 motion = new Vector3(movement.x, verticalVelocity, movement.z);
+                characterController.Move(motion * Time.deltaTime);
             }
             else if (rb != null)
             {
-                // Use Rigidbody (in FixedUpdate would be better, but this works for testing)
-                Vector3 newPos = rb.position + movement * Time.deltaTime;
-                rb.MovePosition(newPos);
+                // Set only the horizontal velocity — preserve the Rigidbody's Y velocity
+                // so gravity and ground collision work correctly.
+                Vector3 vel = rb.linearVelocity;
+                vel.x = movement.x;
+                vel.z = movement.z;
+                // Y is left alone: gravity pulls down, collider prevents falling through ground
+                rb.linearVelocity = vel;
             }
             else
             {
                 moveTarget.position += movement * Time.deltaTime;
             }
-
-            // Rotate to face movement direction (optional, smooth rotation)
-            // Don't rotate the skeleton root - it can mess up the rig
-            // Instead, just move without rotation for now
         }
 
         /// <summary>

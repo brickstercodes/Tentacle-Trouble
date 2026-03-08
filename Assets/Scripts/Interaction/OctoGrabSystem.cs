@@ -22,6 +22,9 @@ namespace Octo.Interaction
         [Tooltip("Head bone (auto-finds HeadWobble if null)")]
         [SerializeField] private Transform headBone;
 
+        [Tooltip("The transform that moves with the octopus body — drag Main_Root here")]
+        [SerializeField] private Transform bodyCenter;
+
         [Tooltip("OctopusLocomotion for anchor feature (auto-finds if null)")]
         [SerializeField] private OctopusLocomotion locomotion;
 
@@ -55,6 +58,9 @@ namespace Octo.Interaction
         /// <summary>Fired when an object is thrown/dropped.</summary>
         public event Action OnThrown;
 
+        /// <summary>World-space center of the octopus body for proximity checks.</summary>
+        private Vector3 BodyCenter => bodyCenter != null ? bodyCenter.position : transform.position;
+
         private void Start()
         {
             // Auto-find head bone via HeadWobble component
@@ -79,6 +85,15 @@ namespace Octo.Interaction
             // Auto-find locomotion
             if (locomotion == null)
                 locomotion = FindAnyObjectByType<OctopusLocomotion>();
+
+            // Auto-fill body center from locomotion's move target if not set manually
+            if (bodyCenter == null && locomotion != null && locomotion.MoveTarget != null)
+            {
+                bodyCenter = locomotion.MoveTarget;
+                Debug.Log($"[OctoGrabSystem] Body center auto-set to '{bodyCenter.name}' from locomotion.");
+            }
+            if (bodyCenter == null)
+                Debug.LogWarning("[OctoGrabSystem] No Body Center assigned! Drag Main_Root into the Body Center field on OctoGrabSystem.");
 
             // Create persistent grab-point transform above head
             // Do NOT parent to scaled transforms — keep it at scene root and update in LateUpdate
@@ -222,8 +237,7 @@ namespace Octo.Interaction
 
         private void TryGrab()
         {
-            // Find closest grabbable object in the entire scene — always grabs nearest, no radius limit
-            Vector3 center = transform.position;
+            Vector3 center = BodyCenter;
             var allGrabbable = FindObjectsByType<ObjectGrabbable>(FindObjectsSortMode.None);
 
             ObjectGrabbable closest = null;
@@ -232,27 +246,27 @@ namespace Octo.Interaction
             foreach (var og in allGrabbable)
             {
                 if (og.IsGrabbed) continue;
+                if (!og.gameObject.activeInHierarchy) continue;
                 float d = Vector3.Distance(center, og.transform.position);
-                Debug.Log($"[OctoGrabSystem]   candidate: {og.name} @ {og.transform.position}, dist={d:F1}");
-                if (d < closestDist)
+                if (d <= grabRadius && d < closestDist)
                 {
                     closestDist = d;
                     closest = og;
                 }
             }
 
-            Debug.Log($"[OctoGrabSystem] TryGrab from {center}, candidates={allGrabbable.Length}");
-
             if (closest != null)
             {
-                closest.Grab(grabPoint);
+                // Pass all octopus colliders so they don't push the grabbed object
+                var octopusColliders = GetComponentsInChildren<Collider>();
+                closest.Grab(grabPoint, octopusColliders);
                 currentlyHeld = closest;
                 Debug.Log($"[OctoGrabSystem] *** GRABBED {closest.name} (dist={closestDist:F2}) ***");
                 OnGrabbed?.Invoke();
             }
             else
             {
-                Debug.LogWarning("[OctoGrabSystem] No grabbable objects in scene!");
+                Debug.Log($"[OctoGrabSystem] Nothing in grab radius ({grabRadius}m)");
             }
         }
 
@@ -266,8 +280,11 @@ namespace Octo.Interaction
             {
                 if (currentlyHeld != null)
                 {
-                    // Throw forward (octopus forward direction) with a slight upward arc
-                    Vector3 throwDir = transform.forward + Vector3.up * 0.3f;
+                    // transform is the prefab root — rotated by the camera controller
+                    Vector3 fwd = transform.forward;
+                    fwd.y = 0f;
+                    fwd.Normalize();
+                    Vector3 throwDir = fwd + Vector3.up * 0.3f;
                     Debug.Log($"[OctoGrabSystem] Threw {currentlyHeld.name} dir={throwDir}");
                     currentlyHeld.Throw(throwDir);
                     currentlyHeld = null;
@@ -321,7 +338,7 @@ namespace Octo.Interaction
         /// </summary>
         private TreasureChest FindNearestChest()
         {
-            Vector3 pos = headBone != null ? headBone.position : transform.position;
+            Vector3 pos = BodyCenter;
             TreasureChest closest = null;
             float closestDist = float.MaxValue;
 
@@ -343,7 +360,7 @@ namespace Octo.Interaction
         {
             if (!showDebugGizmos) return;
 
-            Vector3 center = headBone != null ? headBone.position : transform.position;
+            Vector3 center = BodyCenter;
             Gizmos.color = new Color(0f, 1f, 0f, 0.25f);
             Gizmos.DrawWireSphere(center, grabRadius);
 
